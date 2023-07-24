@@ -1,0 +1,25 @@
+{% extends "shared/shared.html"%}
+
+{%block title%}
+    <title>Simple-Clothes-Store</title>
+{%endblock%}
+
+{%block content%}
+    <div class="container">
+        
+        
+        <div class="row">
+            <div class="col">
+                <h2>Welcome to the Simple App Store</h2>
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p>We sell clothes for Everyone who want's to look fancy</p>
+            </div>
+        </div>
+        {% include "components/cardlink.html" %}
+    </div>
+
+{%endblock%}

@@ -1,0 +1,28 @@
+
+
+{% block content %}
+  
+  <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title text-light-emphasis" id="offcanvasExampleLabel">Carshop</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body bg-dark">
+      <div>
+        <p class="text-light">This where you manage the products you want to buy</p>
+      </div>
+      <div class="dropdown mt-3">
+        {% include "car_shop/car_shop.html" %}
+        {% comment %} <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul> {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+{% endblock  %}

@@ -1,0 +1,34 @@
+{% comment %} <a href="#" class="card p-3 mb-3 my-2 w-80">
+    <div class="card-body">
+        <p class="card-text">{{obj.description}}</p>
+        <p class="card-text">{{obj.brand.brand_name}}</p>
+        <p classs="card-text" style="font-size: 13px">{{obj.price}}$</p>
+        <a href="{% url 'car_shop:add' obj.id path%}" class="btn btn-outline-dark card-text" style="font-size: 13px">
+            Add to car
+        </a>
+    </div>
+</a>  {% endcomment %}
+<a href="#" class="text-black">
+    <div class="card p-3 mb-3 my-2 w-75" >
+    
+        {% if obj.image%}
+            <img src="{{obj.image.url}}" class="img-card-top" width="220" height="290">
+        {% endif %}
+    
+        <div class="card-body">
+        
+            <p class="card-text">{{obj.description}}</p>
+            <p class="card-text">{{obj.brand.brand_name}}</p>
+            <p classs="card-text" style="font-size: 13px">{{obj.price}}$</p>
+            {% csrf_token %}
+            <button type="button" class="btn btn-outline-dark card-text w-80" style="font-size: 13px" onclick="increment_decrement({{obj.id}},'add')">Add to car</button>
+            {% comment %} <a href="{% url 'car_shop:add' obj.id path%}" class="btn btn-outline-dark card-text w-80" style="font-size: 13px">
+                Add to car
+            </a>
+         {% endcomment %}
+        
+        </div>
+    
+    
+    </div> 
+</a>

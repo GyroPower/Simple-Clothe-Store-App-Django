@@ -1,0 +1,20 @@
+{% extends 'shared/shared.html' %}
+{%block title%}
+    <title>Simple-Clothes-Store</title>
+{%endblock%}
+{% load static %}
+{%block content%}
+    <div class="container">
+        
+        <div class="row">
+            {% for clothe in clothes %}
+                <div class="col-lg-4 col-sm-6 mr-auto">
+                    {% with obj=clothe %}
+                        {% include "clothes/clothes_container.html" %}
+                    {% endwith %}
+                </div>
+            {% endfor %}    
+        </div>
+    </div>
+
+{%endblock%}

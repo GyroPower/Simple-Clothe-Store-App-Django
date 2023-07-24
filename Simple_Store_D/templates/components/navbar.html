@@ -1,0 +1,44 @@
+
+
+ <nav class="navbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item px-lg-4">
+          <a class="nav-link {% if request.path == '' %}active{% endif %} text-uppercase text-expanded" aria-current="page" href="{% url 'Home' %} ">Home</a>
+        </li>
+        <li class="nav-item dropdown px-lg-4">
+          <a class="nav-link text-uppercase text-expanded dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Female</a>
+          <ul class="dropdown-menu bg-dark text-light">
+            <li class="nav-item px-lg-4"><a class="dropdown-item bg-dark text-light" href="{% url 'products-F-All' %} ">All clothes</a></li>
+            {% for category in category_F  %}
+              <li class="nav-item px-lg-4"><a class="dropdown-item bg-dark text-light" href="{% url 'product-F' category.type_clothe.type_name%} ">{{category.type_clothe.type_name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link text-uppercase text-expanded dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Male</a>
+          <ul class="dropdown-menu bg-dark text-light">
+            <li class="nav-item"><a class="dropdown-item bg-dark text-light" href="{% url 'products-M-All' %} ">All clothes</a></li>
+            {% for category in category_M  %}
+              <li class="nav-item"><a class="dropdown-item bg-dark text-light" href="{% url 'product-M' category.type_clothe.type_name%} ">{{category.type_clothe.type_name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item px-lg-4">
+          <a class="nav-link text-uppercase text-expanded" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+            Carshop
+          </a>
+        </li>
+      </ul>
+      <form class="d-flex" action="/search/">
+        <input class="form-control me-2 bg-dark text-light" id="autocomplete" name="query" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
