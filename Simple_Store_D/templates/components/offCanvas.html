@@ -11,16 +11,9 @@
       <div>
         <p class="text-light">This where you manage the products you want to buy</p>
       </div>
-      <div class="dropdown mt-3">
+      <div class="dropdown mt-3" id="item-list">
+        <button type="button" class="btn btn-outline-danger p-1 my-3" style="font-size: 18px">Clean car</button>
         {% include "car_shop/car_shop.html" %}
-        {% comment %} <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul> {% endcomment %}
       </div>
     </div>
   </div>

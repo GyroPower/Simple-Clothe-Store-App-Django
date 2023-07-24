@@ -8,27 +8,20 @@
         </a>
     </div>
 </a>  {% endcomment %}
+{% load static %}
+<script src="{% static 'js/get_clothes_car_shop.js' %}"></script>
 <a href="#" class="text-black">
     <div class="card p-3 mb-3 my-2 w-75" >
     
         {% if obj.image%}
             <img src="{{obj.image.url}}" class="img-card-top" width="220" height="290">
         {% endif %}
-    
-        <div class="card-body">
         
+        <div class="card-body">
             <p class="card-text">{{obj.description}}</p>
             <p class="card-text">{{obj.brand.brand_name}}</p>
             <p classs="card-text" style="font-size: 13px">{{obj.price}}$</p>
-            {% csrf_token %}
-            <button type="button" class="btn btn-outline-dark card-text w-80" style="font-size: 13px" onclick="increment_decrement({{obj.id}},'add')">Add to car</button>
-            {% comment %} <a href="{% url 'car_shop:add' obj.id path%}" class="btn btn-outline-dark card-text w-80" style="font-size: 13px">
-                Add to car
-            </a>
-         {% endcomment %}
-        
+            <button type="button" class="btn btn-outline-dark card-text w-80" style="font-size: 13px" onclick="add_item_to_car_shop({{obj.id}},'add')">Add to car</button>
         </div>
-    
-    
     </div> 
 </a>

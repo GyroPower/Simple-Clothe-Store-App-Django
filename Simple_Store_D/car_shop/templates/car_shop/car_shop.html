@@ -1,23 +1,29 @@
 {% csrf_token %}
+{% load static %}
+<script src="{% static 'js/delete_item.js' %}"></script>
 <div class="row ">
-    <div class="col-2">
-        <div class="card bg-dark text-light"  style="width: 23rem;">
-            <div class="card-body">
-                <h5 class="card-title text-center">Carshop</h5>
-                {% if request.session.car_shop.items %}
-                    {% for key, value in request.session.car_shop.items %}
-                        <p class="card-text">Item: {{value.description}}</p>
+    <div class="col-2" id="Items-car">
+        {% if request.session.car_shop.items %}
+            {% for key, value in request.session.car_shop.items %}
+                <div class="card bg-dark text-light my-2" name="item-car-shop" id="{{value.clothe_id}}" style="width: 23rem;">
+                    <div class="card-body">
+                        <p>{{value.clothe_id}}</p>
+                        <p class="card-text" name="Item">Item: {{value.description}}</p>
                         <p class="card-text" id="U-{{value.clothe_id}}">Units: {{value.units}}</p>
+                        <p class="card-text" id="P-{{value.clothe_id}}">Total: {{value.price}}</p>
                         <button type="button" class="btn btn-outline-dark text-light" style="font-size: 13px"  onclick="increment_decrement({{value.clothe_id}},'low')">-</button>
                         <button type="button" class="btn btn-outline-dark text-light" style="font-size: 13px"  onclick="increment_decrement({{value.clothe_id}},'add')">+</button>
-                        <button type="button" class="btn btn-outline-warning p-1 my-2" style="font-size: 13px">Delete Item</button>
-                        <button type="button" class="btn btn-outline-danger p-1" style="font-size: 13px">Clean car</button>
-                    {% endfor %}
-                {% else %}
-                    <p class="card-text">Item: None</p>
-                    <p class="card-text">Units: 0</p>
-                {% endif %}
-            </div>
-        </div>
+                        <button type="button" class="btn btn-outline-warning p-1 my-2" style="font-size: 13px" onclick="delete_item({{value.clothe_id}})">Delete Item</button>
+                    </div>
+                </div>
+             {% endfor %}
+        {% else %}
+                <div class="card bg-dark text-light">
+                    <div class="card-body">
+                        <p class="card-text">Item: None</p>
+                        <p class="card-text">Units: 0</p>
+                    </div>
+                </div>
+        {% endif %}
     </div>
 </div>

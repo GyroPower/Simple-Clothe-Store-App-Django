@@ -23,7 +23,8 @@ def show_Female_products(request:HttpRequest,type:str=""):
         clothes = Female.get_all_type_clothe(type)
    
     
-    return render(request,"Products/products.html",{"clothes":clothes,"path":"F",
+    return render(request,"Products/products.html",{"clothes":clothes,
+                                                    "path":"F",
                                                     "category_F":categorys_female,
                                                     "category_M":categorys_male,
                                                     "type":type})
@@ -39,23 +40,8 @@ def show_Male_products(request:HttpRequest,type:str=""):
     else:
         clothes = Male.get_all_type_clothe(type)
         
-    return render(request,"Products/products.html",{"clothes":clothes,"path":"F",
+    return render(request,"Products/products.html",{"clothes":clothes,
+                                                    "path":"F",
                                                     "category_F":categorys_female,
                                                     "category_M":categorys_male,
                                                     "type":type})
-
-# def offCanvas(request:HttpRequest):
-#     categorys_female = Female.get_all_female_clothe()
-#     categorys_male = Male.get_all_male_clothe()
-    
-#     return render(request,"components/offCanvas.html",{"category_F":categorys_female,"category_M":categorys_male})
-# def show_Female_products_type(request:HttpRequest,type:str):
-#     clothes = Female.get_all_type_clothe(type)
-    
-#     return render(request,"Products/products.html",{"clothes":clothes,"path":"F"})
-
-# def show_Male_products_type(request:HttpRequest,type:str):
-#     clothes = Male.get_all_type_clothe(type)
-    
-#     return render(request,"Products/products.html",{"clothes":clothes})
-

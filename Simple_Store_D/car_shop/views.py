@@ -11,12 +11,20 @@ def add_to_car(request:HttpRequest,clothe_id):
     
     clothe = models_clothes.Clothes.objects.get(id=clothe_id)
 
-    clothe_id = str(clothe_id)
+    clothe_id = str(clothe.id)
     
     car_shop.agregate_to_car(clothe)
     
+    for key in car_shop.car_shop.keys():
+        print(type(key))
+        
+    print(car_shop.car_shop[clothe_id]['units'])
     
-    return JsonResponse(data = {"units":car_shop.car_shop[clothe_id]['units']})
+    return JsonResponse(data = {"clothe_id":clothe_id,
+                                "units":car_shop.car_shop[clothe_id]['units'],
+                                "desc":car_shop.car_shop[clothe_id]['description'],
+                                "price":car_shop.car_shop[clothe_id]['price'],
+                                "items_id":list(car_shop.car_shop.keys())})
 
 
 def low_in_car(request:HttpRequest,clothe_id):
@@ -26,24 +34,24 @@ def low_in_car(request:HttpRequest,clothe_id):
     clothe = models_clothes.Clothes.objects.get(id=clothe_id)
     
     car_shop.lower_clothe(clothe)
-    clothe_id = str(clothe_id)
+    clothe_id = str(clothe.id)
     
     print(car_shop.car_shop[clothe_id]['units'])
     
-    return JsonResponse(data = {"units":car_shop.car_shop[clothe_id]['units']})
+    return JsonResponse(data = {"units":car_shop.car_shop[clothe_id]['units'],
+                                "price":car_shop.car_shop[clothe_id]['price']})
 
 def delete_in_car(request:HttpRequest,clothe_id):
         
     car_shop = Car_Shop(request)
         
     clothe = models_clothes.Clothes.objects.get(id=clothe_id)
-    
-    clothe_id = str(clothe_id)
         
     car_shop.delete_clothe(clothe)
+    clothe_id = str(clothe.id)
     
- 
-    return JsonResponse()
+    print(clothe_id)
+    return JsonResponse(data={"clothe_id":clothe_id})
 
 
 def clear_car(request:HttpRequest,path="",type=""):
