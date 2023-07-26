@@ -21,7 +21,7 @@
             <p class="card-text">{{obj.description}}</p>
             <p class="card-text">{{obj.brand.brand_name}}</p>
             <p classs="card-text" style="font-size: 13px">{{obj.price}}$</p>
-            <button type="button" class="btn btn-outline-dark card-text w-80" style="font-size: 13px" onclick="add_item_to_car_shop({{obj.id}},'add')">Add to car</button>
+            <button type="button" class="btn btn-outline-dark card-text w-80" style="font-size: 13px" onclick="add_item_to_car_shop({{obj.id}},'add')" data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Add to car</button>
         </div>
     </div> 
 </a>

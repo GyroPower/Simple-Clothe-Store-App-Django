@@ -6,7 +6,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Order_Clothe(models.Model):
-    
     User = models.ForeignKey(User,on_delete=models.PROTECT)
     clothe = models.ForeignKey(clothes_models.Clothes,on_delete=models.PROTECT)
     create_at = models.DateTimeField(auto_now_add=True)

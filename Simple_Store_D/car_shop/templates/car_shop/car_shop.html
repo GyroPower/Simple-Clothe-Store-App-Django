@@ -7,7 +7,6 @@
             {% for key, value in request.session.car_shop.items %}
                 <div class="card bg-dark text-light my-2" name="item-car-shop" id="{{value.clothe_id}}" style="width: 23rem;">
                     <div class="card-body">
-                        <p>{{value.clothe_id}}</p>
                         <p class="card-text" name="Item">Item: {{value.description}}</p>
                         <p class="card-text" id="U-{{value.clothe_id}}">Units: {{value.units}}</p>
                         <p class="card-text" id="P-{{value.clothe_id}}">Total: {{value.price}}</p>
@@ -18,7 +17,7 @@
                 </div>
              {% endfor %}
         {% else %}
-                <div class="card bg-dark text-light">
+                <div class="card bg-dark text-light" id="empty-items" style="width: 23rem;">
                     <div class="card-body">
                         <p class="card-text">Item: None</p>
                         <p class="card-text">Units: 0</p>

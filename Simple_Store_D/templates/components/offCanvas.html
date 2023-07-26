@@ -1,18 +1,21 @@
 
 
 {% block content %}
-  
+{% load static %}
+<script src="{% static 'js/clear_car.js' %}"></script>
   <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title text-light-emphasis" id="offcanvasExampleLabel">Carshop</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body bg-dark">
+    <div class="offcanvas-body bg-dark text-light">
       <div>
         <p class="text-light">This where you manage the products you want to buy</p>
       </div>
       <div class="dropdown mt-3" id="item-list">
-        <button type="button" class="btn btn-outline-danger p-1 my-3" style="font-size: 18px">Clean car</button>
+        <button type="button" class="btn btn-outline-danger p-1 my-3" style="font-size: 18px" onclick="clear_car()">Clean car</button>
+        <button type="button" class="btn btn-outline-primary p-1 my-3" style="font-size: 18px" onclick="create_order()">Order</button>
+        
         {% include "car_shop/car_shop.html" %}
       </div>
     </div>

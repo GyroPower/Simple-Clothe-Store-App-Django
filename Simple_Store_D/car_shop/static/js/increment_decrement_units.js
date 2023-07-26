@@ -1,11 +1,14 @@
-function increment_decrement(id,action){
-    fetch("/car-shop/"+action+"/"+id,{
+async function increment_decrement(id,action){
+
+    const response = await fetch("/car-shop/"+action+"/"+id,{
         method: "GET",
-    })
-    .then(response=>response.json())
-    .then(document.getElementById("U-"+id).innerHTML= "Units")
-    .then(data => document.getElementById("U-"+id).innerHTML = "Units: "+data.units)
-    .then(document.getElementById("P-"+id).innerHTML="Price")
-    .then(data => document.getElementById("P-"+id).innerHTML = "Price: "+data.price)
+    });
+
+    const data = await response.json();
+
+    document.getElementById("U-"+id).innerHTML ="Units";
+    document.getElementById("U-"+id).innerHTML = "Units: "+data.units;
+    document.getElementById("P-"+id).innerHTML="Price";
+    document.getElementById("P-"+id).innerHTML = "Price: "+data.price;
 }
 

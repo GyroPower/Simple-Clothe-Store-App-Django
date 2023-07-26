@@ -8,5 +8,5 @@ urlpatterns = [
     path("car-shop/low/<int:clothe_id>",views.low_in_car,name="low"),
     path("car-shop/del/<int:clothe_id>",views.delete_in_car,name="delete"),
     path("car-shop/clear",views.clear_car,name="clear"),
-    
+    path("car-shop/order",views.create_order,name="create-order")
 ]

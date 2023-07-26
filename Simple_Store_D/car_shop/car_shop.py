@@ -27,7 +27,7 @@ class Car_Shop:
                 "gender": clothe.gender,
                 "age": clothe.age,
                 "clothe_type": clothe.type_clothe.type_name,
-                "price": str(round(clothe.price,2)),
+                "price": round(clothe.price,2),
                 "units": 1,
                 "img": clothe.image.url
             }
@@ -39,7 +39,7 @@ class Car_Shop:
             if clothe_id in self.car_shop:
                 self.car_shop[clothe_id]['units'] += 1
                 self.car_shop[clothe_id]['price'] =\
-                    str(float(self.car_shop[clothe_id]["price"]) + clothe.price)
+                    round(float(self.car_shop[clothe_id]["price"]) + clothe.price,2)
         
         # updating the car_shop and saving in the session
         self.save_car_shop()
@@ -54,7 +54,7 @@ class Car_Shop:
             self.car_shop[clothe_id]['units'] -= 1
             # the \ tells to the next line is with the one before 
             self.car_shop[clothe_id]["price"] = \
-                str(float(self.car_shop[clothe_id]["price"])- clothe.price)
+                str(round(float(self.car_shop[clothe_id]["price"])- clothe.price,2))
 
             if self.car_shop[clothe_id]['units'] < 1:
                 self.delete_clothe(clothe)
