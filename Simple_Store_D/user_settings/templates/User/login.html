@@ -1,0 +1,36 @@
+{% extends 'shared/shared.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% if error %}
+                    <div class='alert alert-danger alert-dismissible' role='alert'>
+                       <div>{{error}}</div>
+                       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='close'></button>
+                    </div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <label for="email" class="text-start"><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" name="email_user" required>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="password" class="text-start"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="password_user" required>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-primary my-2" value="Login">
+                        </div>    
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,17 +1,15 @@
 from django.http import HttpRequest,JsonResponse
-from django.shortcuts import render
 from .car_shop import Car_Shop
-from clothes import models as models_clothes
 from . import models
-from django.shortcuts import redirect 
-from clothes.repository import Female, Male 
+from .repository import car_shop as car_shop_repo
+from clothes.repository import general
 
 # Create your views here.
 
 def add_to_car(request:HttpRequest,clothe_id):
     car_shop = Car_Shop(request)
     
-    clothe = models_clothes.Clothes.objects.get(id=clothe_id)
+    clothe = general.get_clothe(clothe_id)
 
     clothe_id = str(clothe.id)
     
@@ -29,7 +27,7 @@ def low_in_car(request:HttpRequest,clothe_id):
     
     car_shop = Car_Shop(request)
     
-    clothe = models_clothes.Clothes.objects.get(id=clothe_id)
+    clothe = general.get_clothe(clothe_id)
     
     car_shop.lower_clothe(clothe)
     clothe_id = str(clothe.id)
@@ -42,7 +40,7 @@ def delete_in_car(request:HttpRequest,clothe_id):
         
     car_shop = Car_Shop(request)
         
-    clothe = models_clothes.Clothes.objects.get(id=clothe_id)
+    clothe = general.get_clothe(clothe_id)
         
     car_shop.delete_clothe(clothe)
     clothe_id = str(clothe.id)
@@ -59,17 +57,7 @@ def clear_car(request:HttpRequest):
     
 def create_order(request:HttpRequest):
     car_shop = Car_Shop(request)
-    order = models.Order()
-    for key, value in car_shop.car_shop.items():
-        clothe = models_clothes.Clothes.objects.get(id = value["clothe_id"])
-        order_clothe =  models.Order_Clothe(clothe = clothe,User=request.user,units = value['units'])    
-        order_clothe.save()
-        order.save()
-        order.order_data.add(order_clothe)
-
-    order.total_to_pay = order.total
     
+    response = car_shop_repo.create_order(car_shop,request.user)
     
-    car_shop.delete_all()
-    
-    return JsonResponse(data={"response":"V"})
+    return JsonResponse(data=response)

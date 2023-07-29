@@ -1,0 +1,43 @@
+{% extends 'shared/shared.html' %}
+
+{%block title%}
+    <title>User-info</title>
+{%endblock%}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="text-start">Orders:</p>
+            <a href="{% url 'logout' %}" class="btn btn-danger mb-3">Logout</a>
+            {% for order in order_of_user %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="text-start" id="name-user">User: {{request.user.username}}</p>
+                        <p class="text-start">Order ID: {{order.pk}}</p>
+                        <p class="text-start">Date: {{order.created_at}}</p>
+                        <p class="text-start">Clothes in order:</p>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col">
+                                {% for key,value in clothes_in_order.items %}
+                                    {% if key == order.pk %}
+                                        {% for v in value %}
+                                            <p class="text-start">Description: {{v.clothe.description}}</p>
+                                            <p class="text-start">Units: {{v.units}}</p>
+                                        {% endfor %}    
+                                    {% endif %}  
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <p class="text-start">Total: {{order.total_to_pay}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+{% endblock %}
