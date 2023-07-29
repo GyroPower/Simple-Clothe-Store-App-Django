@@ -20,7 +20,7 @@
             {% endfor %}
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown px-lg-4">
           <a class="nav-link text-uppercase text-expanded dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Male</a>
           <ul class="dropdown-menu bg-dark text-light">
             <li class="nav-item"><a class="dropdown-item bg-dark text-light" href="{% url 'products-M-All' %} ">All clothes</a></li>
@@ -34,6 +34,20 @@
             Carshop
           </a>
         </li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item px-lg-4">          
+            <a class="nav-link text-uppercase text-expanded" aria-current="page" href="{% url 'user-info' %}">User</a>
+          </li>
+         {% else %}
+          <li class="nav-item dropdown px-lg-4">
+            <a class="nav-link text-uppercase text-expanded dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login/Sigup</a>
+            <ul class="dropdown-menu bg-dark text-light">
+              <li class="nav-item"><a href="{% url 'login' %}" class="dropdown-item text-uppercase text-expanded" aria-current="page">Login</a></li>
+              <li class="nav-item"><a href="{% url 'sigup' %}" class="dropdown-item text-uppercase text-expanded" aria-current="page">Sigup</a></li>
+            </ul>
+          </li>
+        {% endif %}
+        
       </ul>
       <form class="d-flex" action="/search/">
         <input class="form-control me-2 bg-dark text-light" id="autocomplete" name="query" type="search" placeholder="Search" aria-label="Search">

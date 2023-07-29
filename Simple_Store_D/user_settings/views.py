@@ -8,7 +8,7 @@ from .repository import auth_user as auth
 # Create your views here.
 
 
-def auth_user(request:HttpRequest):
+def user_info(request:HttpRequest):
     
     if request.user.is_authenticated:
         clothes_in_order,order = orders.get_order_of_user(request.user)
@@ -47,3 +47,30 @@ def logout_user(request:HttpRequest):
     logout(request)
     
     return redirect("login")
+
+def sigup_user(request:HttpRequest):
+    
+    if request.method == "GET":
+        
+        if not request.user.is_authenticated:
+            
+            return render(request,template_name="User/sigup.html",context={"":""})
+        else:
+            return redirect("user-info")
+        
+    elif request.method == "POST":
+        form = form_user.SigupUser(request.POST)
+        
+        if form.is_valid():
+            
+            if form.check_password_equal():
+                user = auth.save_user(form.cleaned_data.get("username"),
+                                      form.cleaned_data.get("email_user"),
+                                      form.cleaned_data.get("password_user_1"))
+                
+                if user:
+                    return redirect("Home")
+        
+        else:
+            
+            return render(request,template_name="User/sigup.html",context={"Error":"Passwords are not the same"})

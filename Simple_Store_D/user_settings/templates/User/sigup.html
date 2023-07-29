@@ -1,0 +1,61 @@
+{% extends 'shared/shared.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h3 class="text-start mb-2">Sigup</h3>
+
+    {% if error %}
+        <div class="row">
+            <div class='col alert alert-danger alert-dismissible' role='alert'>
+                <div>{{error}}</div>
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='close'></button>
+            </div>
+        </div>
+        
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-2">
+                <label for="username" class="text-start">Username:</label>
+            </div>
+            <div class="col">
+                <input type="text" placeholder="Put your username" name="username_user">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label for="email" class="text-start">Email:</label>
+            </div>
+            <div class="col">
+                <input type="email" placeholder="Email here" name="email_user" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label for="password_1" class="text-start">Password:</label>
+            </div>
+            <div class="col">
+                <input type="password" placeholder="Password" name="password_1" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label for="password_2" class="text-start">Repeat password:</label>
+            </div>
+            <div class="col">
+                <input type="password" placeholder="Repeat password" name="password_2" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <input type="submit" class="btn btn-primary" value="Sig up">
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

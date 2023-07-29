@@ -14,7 +14,6 @@ def get_order_of_user(User):
         if order not in orders_list:
             orders_list.append(order)
     
-    print(orders_list)
     
     clothes_in_order = {}
     
