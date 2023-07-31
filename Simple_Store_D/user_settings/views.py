@@ -4,11 +4,14 @@ from django.shortcuts import redirect, render
 from . import form as form_user
 from car_shop.repository import orders
 from .repository import auth_user as auth
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 # Create your views here.
 
 
 def user_info(request:HttpRequest):
+    
     
     if request.user.is_authenticated:
         clothes_in_order,order = orders.get_order_of_user(request.user)
@@ -16,7 +19,7 @@ def user_info(request:HttpRequest):
         return render(request,template_name="User/User_info.html",context={"clothes_in_order":clothes_in_order,
                                                                            "order_of_user":order})
     else:
-        redirect("login")
+        return redirect("login")
         
 
 def login_user(request:HttpRequest):
@@ -74,3 +77,34 @@ def sigup_user(request:HttpRequest):
         else:
             
             return render(request,template_name="User/sigup.html",context={"Error":"Passwords are not the same"})
+        
+        
+def change_password_user(request:HttpRequest):
+    
+    if request.user.is_authenticated:
+        
+        if request.method == "POST":
+                
+            form = form_user.ChangePasswordUser(request.POST)
+            
+            error = "Passwords are not equals"
+            
+            if form.is_valid() and form.cleaned_data.get("password_1") == form.cleaned_data.get("password_2"):
+                
+                user = auth.change_password(request.user.id,
+                                            form.cleaned_data.get("old_password"),
+                                            form.cleaned_data.get("password_1"))
+                error="Password incorrect"
+                if user:
+                
+                    return redirect("Home") 
+
+            return render(request,template_name="User/change_password.html",context={"error":error}) 
+        
+        elif request.method == "GET":
+            
+            return render(request,template_name="User/change_password.html",context={"":""})   
+        
+    else:
+        
+        return redirect("login")

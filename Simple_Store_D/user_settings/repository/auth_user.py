@@ -26,3 +26,24 @@ def save_user(username="",email="",password=""):
         return True 
     except:
         return False
+    
+
+def change_password(user_id,old_password,new_pass):
+    
+    user = User.objects.filter(id=user_id).first()
+    
+    
+    if user.check_password(old_password):
+        
+        user.password = new_pass
+    
+        user.save()
+        
+        return True 
+    
+    else:
+        
+        return False
+    
+    
+    
