@@ -1,0 +1,5 @@
+.border_color {
+    color:darkblue;
+    border: 5px solid black;
+    fill: currentColor;
+}

@@ -2,7 +2,7 @@ from django import forms
 from django.http import HttpRequest
 
 
-class ChangePasswordUser(forms.Form):
+class FormChangePasswordUser(forms.Form):
     old_password = forms.CharField()
     password_1 = forms.CharField()
     password_2 = forms.CharField()

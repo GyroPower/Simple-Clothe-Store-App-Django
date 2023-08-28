@@ -6,43 +6,103 @@ from clothes.repository import general
 
 # Create your views here.
 
-def add_to_car(request:HttpRequest,clothe_id):
+def add_to_car(request:HttpRequest,string_id):
+    
+    count = 0
+    clothe_id = ""
+    color_id = ""
+    size_id = ""
+    for i in range(len(string_id)):
+        if count < 1 and string_id[i] != "-":
+            clothe_id +=string_id[i]
+        elif 1==count<2 and string_id[i] != '-':
+            color_id += string_id[i]
+        elif 2==count<3 and string_id[i] != "-":
+            size_id += string_id[i]
+        else:
+            count +=1
+    
     car_shop = Car_Shop(request)
     
     clothe = general.get_clothe(clothe_id)
-
-    clothe_id = str(clothe.id)
+    color = general.get_color(color_id=color_id)
+    size = general.get_size(size_id=size_id)
     
-    car_shop.agregate_to_car(clothe)
     
-   
-    return JsonResponse(data = {"clothe_id":clothe_id,
-                                "units":car_shop.car_shop[clothe_id]['units'],
-                                "desc":car_shop.car_shop[clothe_id]['description'],
-                                "price":car_shop.car_shop[clothe_id]['price'],
+    car_shop.agregate_to_car(clothe,color,size)
+    
+    order_key = string_id 
+    
+    return JsonResponse(data = {"response":"V",
+                                "clothe_id":clothe_id,
+                                "units":car_shop.car_shop[order_key]['units'],
+                                "color_id":car_shop.car_shop[order_key]['color_id'],
+                                "color" : car_shop.car_shop[order_key]['color'],
+                                "size_id" : car_shop.car_shop[order_key]['size_id'],
+                                "size": car_shop.car_shop[order_key]['size'],
+                                "desc":car_shop.car_shop[order_key]['description'],
+                                "price":car_shop.car_shop[order_key]['price'],
                                 "items_id":list(car_shop.car_shop.keys())})
 
 
-def low_in_car(request:HttpRequest,clothe_id):
+def low_in_car(request:HttpRequest,string_id):
+    
+    count = 0
+    clothe_id = ""
+    color_id = ""
+    size_id = ""
+    for i in range(len(string_id)):
+        if count < 1 and string_id[i] != "-":
+            clothe_id +=string_id[i]
+        elif 1==count<2 and string_id[i] != '-':
+            color_id +=string_id[i]
+        elif 2==count<3 and string_id[i] != "-":
+            size_id += string_id[i]
+        else:
+            count +=1
     
     car_shop = Car_Shop(request)
     
     clothe = general.get_clothe(clothe_id)
+    color = general.get_color(color_id=color_id)
+    size = general.get_size(size_id=size_id)
     
-    car_shop.lower_clothe(clothe)
-    clothe_id = str(clothe.id)
+    car_shop.lower_clothe(clothe,color,size)
+    key_order = str(clothe.id)+"-"+str(color.id) + "-"+str(size.id)
     
+    if key_order in car_shop.car_shop.keys():
+        data = {"response" : "V",
+                "units":car_shop.car_shop[key_order]['units'],
+                "price":car_shop.car_shop[key_order]['price']}
+    else:
+        data = {"response":"N"}
     
-    return JsonResponse(data = {"units":car_shop.car_shop[clothe_id]['units'],
-                                "price":car_shop.car_shop[clothe_id]['price']})
+    return JsonResponse(data)
 
-def delete_in_car(request:HttpRequest,clothe_id):
-        
+def delete_in_car(request:HttpRequest,string_id):
+    
+    count = 0
+    clothe_id = ""
+    color_id = ""
+    size_id = ""
+    for i in range(len(string_id)):
+        if count < 1 and string_id[i] != "-":
+            clothe_id +=string_id[i]
+        elif 1==count<2 and string_id[i] != '-':
+            color_id +=string_id[i]
+        elif 2==count<3 and string_id[i] != "-":
+            size_id += string_id[i]
+        else:
+            count +=1
+    
+    
     car_shop = Car_Shop(request)
         
     clothe = general.get_clothe(clothe_id)
-        
-    car_shop.delete_clothe(clothe)
+    color = general.get_color(color_id=color_id)
+    size = general.get_size(size_id)
+    
+    car_shop.delete_clothe(clothe,color,size)
     clothe_id = str(clothe.id)
     
     return JsonResponse(data={"clothe_id":clothe_id})
@@ -50,7 +110,7 @@ def delete_in_car(request:HttpRequest,clothe_id):
 
 def clear_car(request:HttpRequest):
     car_shop = Car_Shop(request)
-    
+    print("Clear")
     car_shop.delete_all()
     
     return JsonResponse(data={"response":"V"})

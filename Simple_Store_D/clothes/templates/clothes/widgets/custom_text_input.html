@@ -1,0 +1,6 @@
+{% with css_classes=widget.attrs.class|default:""%}
+<input type={{ widget.type }} id="exampleTextinput" {{widget.attrs}} class="form-control" name="{{widget.name}}" {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+{% if max_length %}
+    <div class="char-counter" data-max-length='{{max_length}}'></div>
+{% endif %}
+{% endwith %}

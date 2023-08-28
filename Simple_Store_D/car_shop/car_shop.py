@@ -17,12 +17,17 @@ class Car_Shop:
             self.car_shop = self.session["car_shop"] = {}
         
     
-    def agregate_to_car(self,clothe:models.Clothes):
+    def agregate_to_car(self,clothe:models.Clothes,color:models.Colors,size:models.Sizes):
         # Adding the new clothe to shop in the car_shop
-        clothe_id = str(clothe.id)
-        if (clothe_id not in self.car_shop.keys()):
-            self.car_shop[clothe_id] = {
-                "clothe_id" : clothe_id,
+        order_key = str(clothe.id)+"-"+str(color.id) +"-"+str(size.id)
+        
+        if (order_key not in self.car_shop.keys()):
+            self.car_shop[order_key] = {
+                "clothe_id" : str(clothe.id),
+                "color_id" : str(color.id),
+                "color": color.color,
+                "size_id":size.id,
+                "size":size.size,
                 "description": clothe.description,
                 "gender": clothe.gender,
                 "age": clothe.age,
@@ -34,12 +39,11 @@ class Car_Shop:
         else:
             # if is alredy in the car_shop, just increments the units and the price of the 
             # clothe
-            clothe_id = str(clothe.id)
              
-            if clothe_id in self.car_shop:
-                self.car_shop[clothe_id]['units'] += 1
-                self.car_shop[clothe_id]['price'] =\
-                    round(float(self.car_shop[clothe_id]["price"]) + clothe.price,2)
+            if order_key in self.car_shop:
+                self.car_shop[order_key]['units'] += 1
+                self.car_shop[order_key]['price'] =\
+                    round(float(self.car_shop[order_key]["price"]) + clothe.price,2)
         
         # updating the car_shop and saving in the session
         self.save_car_shop()
@@ -48,25 +52,26 @@ class Car_Shop:
         self.session['car_shop'] = self.car_shop
         self.session.modified = True
         
-    def lower_clothe(self, clothe:models.Clothes):
-        clothe_id = str(clothe.id)
-        if clothe_id in self.car_shop:
-            self.car_shop[clothe_id]['units'] -= 1
+    def lower_clothe(self, clothe:models.Clothes, color:models.Colors,size:models.Sizes):
+        order_key = str(clothe.id) +"-"+str(color.id) + "-"+str(size.id)
+        if order_key in self.car_shop:
+            print("V")
+            self.car_shop[order_key]['units'] -= 1
             # the \ tells to the next line is with the one before 
-            self.car_shop[clothe_id]["price"] = \
-                str(round(float(self.car_shop[clothe_id]["price"])- clothe.price,2))
+            self.car_shop[order_key]["price"] = \
+                str(round(float(self.car_shop[order_key]["price"])- clothe.price,2))
 
-            if self.car_shop[clothe_id]['units'] < 1:
-                self.delete_clothe(clothe)
+            if self.car_shop[order_key]['units'] < 1:
+                self.delete_clothe(clothe,color,size)
         
         self.save_car_shop()
         
-    def delete_clothe(self, clothe:models.Clothes):
+    def delete_clothe(self, clothe:models.Clothes,color:models.Colors,size:models.Sizes):
         
-        clothe_id = str(clothe.id)
+        order_key = str(clothe.id)+"-"+str(color.id) + "-" + str(size.id)
         
-        if clothe_id in self.car_shop:
-            del self.car_shop[clothe_id]
+        if order_key in self.car_shop:
+            del self.car_shop[order_key]
         self.save_car_shop()
             
     def delete_all(self):

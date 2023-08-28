@@ -2,8 +2,10 @@ async function clear_car()
 {
     const empy_div = document.getElementById("empty-items");
 
-    if (empy_div!=null)
+    console.log("clear");
+    if (empy_div==null)
     {
+        console.log("V")
         const response = await fetch("/car-shop/clear",{
             method:"GET",
         });
@@ -23,6 +25,8 @@ async function clear_car()
             }
         }
     }
-    
+    else {
+        console.log("Nothing happend")
+    }
 
 }

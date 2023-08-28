@@ -8,20 +8,23 @@
         </a>
     </div>
 </a>  {% endcomment %}
-{% load static %}
-<script src="{% static 'js/get_clothes_car_shop.js' %}"></script>
+
 <a href="#" class="text-black">
     <div class="card p-3 mb-3 my-2 w-75" >
     
         {% if obj.image%}
-            <img src="{{obj.image.url}}" class="img-card-top" width="220" height="290">
+            <a href="{% url 'detail-product' obj.id%}">
+                <img src="{{obj.image.url}}" class="img-card-top" width="220" height="290">
+            </a>
         {% endif %}
         
         <div class="card-body">
-            <p class="card-text">{{obj.description}}</p>
+            <a href="{% url 'detail-product' obj.id%}">
+                <p class="card-text">{{obj.description}}</p>
+            </a>
             <p class="card-text">{{obj.brand.brand_name}}</p>
             <p classs="card-text" style="font-size: 13px">{{obj.price}}$</p>
-            <button type="button" class="btn btn-outline-dark card-text w-80" style="font-size: 13px" onclick="add_item_to_car_shop({{obj.id}},'add')" data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">Add to car</button>
+            <a type="button" href="{% url 'detail-product' obj.id%}" class="btn btn-outline-dark card-text w-80" style="font-size: 13px">View</a>
         </div>
     </div> 
 </a>

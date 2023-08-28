@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+#Images sizes i need (1320,583)
 
 from pathlib import Path
 from .config import settings_core
@@ -33,7 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'Simple_Store_D.apps.MyAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "clothes",
     "car_shop",
-    "user_settings"
+    "user_settings",
+    "colorfield"
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Simple_Store_D.urls'
 
-print(BASE_DIR)
+
 
 TEMPLATES = [
     {
@@ -128,12 +130,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR,"static")
+
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
 if not os.path.isdir(MEDIA_ROOT):
     os.mkdir(MEDIA_ROOT)
+    
+if not os.path.isdir(STATIC_ROOT):
+    os.mkdir(STATIC_ROOT)
 
 
 # Default primary key field type

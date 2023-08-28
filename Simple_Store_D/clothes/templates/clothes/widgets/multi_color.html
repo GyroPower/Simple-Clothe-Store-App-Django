@@ -1,0 +1,7 @@
+{% for color in widget.queryset %}
+  <label style="display: flex; align-items: center;">
+    <input type="checkbox" name="{{ widget.name }}" value="{{ color.id|stringformat:'s' }}" {% if color.id|stringformat:'s' in widget.value%} checked {%endif%}>
+    <span style="display: inline-block; width: 20px; height: 20px; background-color: {{ color.color }}; margin-right: 5px;"></span>
+    {{color}}
+  </label>
+{% endfor %}
