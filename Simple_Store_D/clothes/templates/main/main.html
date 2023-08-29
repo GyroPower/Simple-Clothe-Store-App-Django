@@ -15,13 +15,23 @@
         </div>
 
         <div class="row">
-            <div class="col"></div>
-            <div class="col-sm-8">
-                <p>We sell clothes for Everyone who want's to look fancy</p>
-                {% include "components/carousel.html" %}
+            <div class="col">
+                <h3 class="my-4 mb-2">Latest in female clothes</h3>
+                {% with items_for_slide=items_for_slide_F Gender=F %}
+                    {% include "components/carousel.html" %}
+                {% endwith %}
             </div>
-            <div class="col"></div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <h3 class="my-4 mb-2">Latest in male clothes</h3>
+                {% with items_for_slide=items_for_slide_M Gender=M %}
+                    {% include "components/carousel.html" %}
+                {% endwith %}
+            </div>
+        </div>
+        
     </div>
 
 {%endblock%}

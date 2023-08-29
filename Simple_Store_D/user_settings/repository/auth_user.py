@@ -37,7 +37,6 @@ def change_password(user_id,old_password,new_pass):
         
         user.password = new_pass
     
-        print(user.password)
         
         return user 
     

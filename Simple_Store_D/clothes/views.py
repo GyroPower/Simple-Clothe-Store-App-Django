@@ -25,12 +25,14 @@ class HomeView(View):
         
         for category in categorys_male:
             latest_clothes_in_categorys_m.append(general.get_latest_clothe_type(category.type_name,"M"))
-        
-        
+
+       
         return render(request,self.template_name,context={"category_F":categorys_female,
                                                           "category_M":categorys_male,
                                                           "items_for_slide_F":latest_clothes_in_categorys_f,
-                                                          "items_for_slide_M":latest_clothes_in_categorys_m})
+                                                          "items_for_slide_M":latest_clothes_in_categorys_m,
+                                                          "M":"M",
+                                                          "F":"F"})
 
 
 class ShowFemaleProducts(View):

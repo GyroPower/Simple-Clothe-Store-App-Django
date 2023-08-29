@@ -1,17 +1,30 @@
 
-<div id="carosuelOfTypesClothes" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner shadow-4-strong">
-        {% for item in items_for_slide_F%}
+<div id="carosuelOfTypesClothes{{Gender}}" class="carousel slide my-2" >
+  <div class="carousel-indicators">
+    {% for image in items_for_slide %}
+    <button type="button" data-bs-target="#carosuelOfTypesClothes{{Gender}}" data-bs-slide-to="{{forloop.counter0}}" class="active" aria-current="true"></button>
+    {% endfor %}
+  </div> 
+
+    <div class="carousel-inner rounded-1 shadow-4-strong">
+      {% for clothe,image in items_for_slide%}
         <div class="carousel-item active text-center">
-            <img src="{{item.image.url}}" class="mx-auto d-block " >
+            <img src="{{image}}" class="d-block w-100" >
+            <div class="carousel-caption d-none d-md-block">
+              <h5>{{clothe.type_clothe.type_name}}</h5>
+              <a href="{% url 'detail-product' clothe.id%}" class="text-light">
+                <p>See Product</p>
+              </a>
+            </div>
         </div>
       {% endfor %}
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#carosuelOfTypesClothes{{Gender}}" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carosuelOfTypesClothes{{Gender}}" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>

@@ -1,6 +1,8 @@
 from django.http import HttpRequest, JsonResponse
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import redirect, render
+
+from clothes.repository import general
 from . import form as form_user
 from car_shop.repository import orders
 from .repository import auth_user as auth
@@ -16,8 +18,7 @@ class UserInfo(View):
     
     def get(self,request:HttpRequest):
         if request.user.is_authenticated:
-            categorys_female = Female.get_all_female_clothe()
-            categorys_male = Male.get_all_male_clothe()
+            categorys_female,categorys_male = general.get_categorys_of_genders()
             clothes_in_order, order = orders.get_order_of_user(request.user)
             
             return render(request,template_name="User/User_info.html",context={"clothes_in_order":clothes_in_order,
@@ -36,8 +37,7 @@ class LoginUser(View):
 
     def get(self,request:HttpRequest):
         if not request.user.is_authenticated:
-            categorys_female = Female.get_all_female_clothe()
-            categorys_male = Male.get_all_male_clothe()
+            categorys_female,categorys_male = general.get_categorys_of_genders()
             
             return render(request,self.template_name,{"category_F":categorys_female,
                                                     "category_M":categorys_male})
@@ -78,8 +78,7 @@ class SigUpUser(View):
     
     def get(self,request:HttpRequest):
         if not request.user.is_authenticated:
-            categorys_female = Female.get_all_female_clothe()
-            categorys_male = Male.get_all_male_clothe()
+            categorys_female,categorys_male = general.get_categorys_of_genders()
             
             return render(request,self.template_name,context={"category_F":categorys_female,
                                                                 "category_M":categorys_male})
@@ -111,8 +110,7 @@ class ChangePasswordUser(View):
     def get(self,request:HttpRequest):
         
         if request.user.is_authenticated:
-            categorys_female = Female.get_all_female_clothe()
-            categorys_male = Male.get_all_male_clothe()
+            categorys_female,categorys_male = general.get_categorys_of_genders()
             
             return render(request,self.template_name,context={"category_F":categorys_female,
                                                     "category_M":categorys_male})
@@ -123,8 +121,8 @@ class ChangePasswordUser(View):
     def post(self,request:HttpRequest):
         
         if request.user.is_authenticated:
-            categorys_female = Female.get_all_female_clothe()
-            categorys_male = Male.get_all_male_clothe()
+            categorys_female,categorys_male = general.get_categorys_of_genders()
+            
             form = self.form_class(request.POST) 
             
             error = "Passwords are not equals"
