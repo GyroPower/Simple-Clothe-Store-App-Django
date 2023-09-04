@@ -21,7 +21,9 @@ class UserInfo(View):
             categorys_female,categorys_male = general.get_categorys_of_genders()
             clothes_in_order, order = orders.get_order_of_user(request.user)
             
-            return render(request,template_name="User/User_info.html",context={"clothes_in_order":clothes_in_order,
+            
+            return render(request,template_name="User/User_info.html",context={"username":request.user.username,
+                                                                            "clothes_in_order":clothes_in_order,
                                                                             "order_of_user":order,
                                                                             "category_F":categorys_female,
                                                                             "category_M":categorys_male})
@@ -90,7 +92,7 @@ class SigUpUser(View):
         form = self.form_class(request.POST)
         
         if form.is_valid():
-            if form.check_password_equal():
+            if form.cleaned_data.get("password_user_1") == form.cleaned_data.get("password_user_2"):
                 user = auth.save_user(form.cleaned_data.get("username"),
                                       form.cleaned_data.get("email_user"),
                                       form.cleaned_data.get("password_user_1"))
@@ -113,7 +115,7 @@ class ChangePasswordUser(View):
             categorys_female,categorys_male = general.get_categorys_of_genders()
             
             return render(request,self.template_name,context={"category_F":categorys_female,
-                                                    "category_M":categorys_male})
+                                                              "category_M":categorys_male})
 
         return redirect("login")
     
@@ -143,3 +145,55 @@ class ChangePasswordUser(View):
                                                               "category_F":categorys_female,
                                                               "category_M":categorys_male})
                         
+class ChangeEmailUser(View):
+    template_name = "User/email_change.html"
+    form_class= form_user.EmailChangeForm
+    
+    def get(self,request:HttpRequest):
+        if request.user.is_authenticated:
+            categorys_female,categorys_male = general.get_categorys_of_genders()
+            
+            form = self.form_class
+            
+            
+            
+            return render(request,template_name=self.template_name,context={"category_F":categorys_female,
+                                                                            "category_M":categorys_male,
+                                                                            "form":form})
+        return redirect("login")
+    
+    
+    def post(self,request:HttpRequest):
+        if request.user.is_authenticated:
+            
+            form = self.form_class(request.POST) 
+            
+            error = "Password incorrect"
+            
+            if form.is_valid() and request.user.check_password(form.cleaned_data.get("password_user")):
+                
+                user = auth.change_email(request.user.id,form.cleaned_data.get("new_email"))
+
+                if user:
+                    return redirect("user-info")
+                else:
+                    error = 'incorrect email'
+            categorys_female,categorys_male = general.get_categorys_of_genders()
+            
+            
+            password = form.cleaned_data.get("password_user")
+            email = form.cleaned_data.get("new_email")
+                
+            if error == "Password incorrect":
+                password = None 
+            
+            else:
+                email = None 
+                
+                
+            return render(request,template_name=self.template_name,context={"category_F":categorys_female,
+                                                                            "category_M":categorys_male,
+                                                                            "error":error,
+                                                                            "password":password,
+                                                                            "email":email})
+            

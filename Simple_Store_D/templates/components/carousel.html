@@ -1,20 +1,22 @@
+{% load static %}
 
-<div id="carosuelOfTypesClothes{{Gender}}" class="carousel slide my-2" >
+<div id="carosuelOfTypesClothes{{Gender}}" class="carousel slide " >
   <div class="carousel-indicators">
     {% for image in items_for_slide %}
     <button type="button" data-bs-target="#carosuelOfTypesClothes{{Gender}}" data-bs-slide-to="{{forloop.counter0}}" class="active" aria-current="true"></button>
     {% endfor %}
   </div> 
 
-    <div class="carousel-inner rounded-1 shadow-4-strong">
+    <div class="carousel-inner">
       {% for clothe,image in items_for_slide%}
         <div class="carousel-item active text-center">
-            <img src="{{image}}" class="d-block w-100" >
+            <img src="{{image}}" class="d-block w-100 h-100" >
             <div class="carousel-caption d-none d-md-block">
               <h5>{{clothe.type_clothe.type_name}}</h5>
               <a href="{% url 'detail-product' clothe.id%}" class="text-light">
-                <p>See Product</p>
+                See Product
               </a>
+              <p>{{image}}</p>
             </div>
         </div>
       {% endfor %}

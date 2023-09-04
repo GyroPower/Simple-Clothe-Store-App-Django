@@ -19,19 +19,28 @@ def get_latest_clothe_type(type_name:str,gender:str):
     
     if not os.path.isfile("media/resized/"+new_name):
         
-    
-        image = Image.open(clothe.image.path)
+        new_path = "media/clothes_media/"+name
         
-        new_image = image.resize((1320,583))
+        
+        image = Image.open(new_path)
+        
+        new_image = image.resize((810,1080))
         
         new_image.save("media/resized/"+new_name)
+        
+        
      
     
     return (clothe,"/media/resized/"+new_name)
     
 def get_clothe(id):
-    return models.Clothes.objects.get(id=id)
-
+    
+    try:
+    
+        return models.Clothes.objects.get(id=id)
+    except:
+        return None 
+    
 def get_color(color_id):
     return models.Colors.objects.get(id=color_id)
 

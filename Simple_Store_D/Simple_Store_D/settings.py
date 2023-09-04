@@ -141,7 +141,11 @@ if not os.path.isdir(MEDIA_ROOT):
     
 if not os.path.isdir(STATIC_ROOT):
     os.mkdir(STATIC_ROOT)
+    
+media_dir = os.path.join(MEDIA_ROOT,"clothes_media/")
 
+if not os.path.isdir(media_dir):
+    os.mkdir(media_dir)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -1,8 +1,5 @@
 from email.policy import default
 from django.db import models
-from django.core.files.storage import FileSystemStorage
-from Simple_Store_D.config import settings_core
-from Simple_Store_D.settings import MEDIA_ROOT
 from colorfield.fields import ColorField
 from .color_constants import colors
 import os
@@ -33,10 +30,7 @@ if len(Sizes.objects.all()) < 4:
 
 
 #This if for the media dir where it should save the images of the clothes 
-media_dir = os.path.join(MEDIA_ROOT,"clothes/")
 
-if not os.path.isdir(media_dir):
-    os.mkdir(media_dir)
 
 
 class Distributor(models.Model):
@@ -106,7 +100,7 @@ class Clothes(models.Model):
     price = models.FloatField(null=True)
     units = models.IntegerField(default=0)
     color = models.ManyToManyField(Colors,blank=True)
-    image = models.ImageField(upload_to="clothes/",null=True)
+    image = models.ImageField(upload_to="clothes_media/",null=True)
     
     def __str__(self):
         return f"{self.description} | {self.brand.brand_name} | {self.type_clothe.type_name} | Gender: {self.gender}"
@@ -119,10 +113,3 @@ class Clothes(models.Model):
         verbose_name_plural = "Clothes"
     
 
-# class ColorClothe(models.Model):
-#     class Meta: 
-#         verbose_name = ("Clothe/Color")
-#         verbose_name_plural= ("Clothes/Colors")
-        
-#     clothe = models.ForeignKey(Clothes,verbose_name=("Clothe"),on_delete=models.CASCADE)
-#     color = models.ForeignKey(Colors,verbose_name=("Color"),on_delete=models.CASCADE)

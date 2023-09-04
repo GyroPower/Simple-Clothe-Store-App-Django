@@ -19,7 +19,7 @@
         {% endif %}
         
         <div class="card-body">
-            <a href="{% url 'detail-product' obj.id%}">
+            <a href="{% url 'detail-product' obj.id%} " class="text-dark">
                 <p class="card-text">{{obj.description}}</p>
             </a>
             <p class="card-text">{{obj.brand.brand_name}}</p>

@@ -18,6 +18,8 @@ class ClothesModelForm(forms.ModelForm):
         }
     
     
-  
+class SimpleForm(forms.Form):
+    
+    name = forms.CharField(widget=forms.TextInput(attrs={"class":'form-control'}))  
    
-        
+    

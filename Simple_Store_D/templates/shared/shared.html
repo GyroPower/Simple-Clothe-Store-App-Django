@@ -8,7 +8,7 @@
     {% endblock  %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     
     {% include "components/navbar.html" %}
     {% include "components/offCanvas.html" %}
@@ -25,8 +25,9 @@
     <script src="{% static 'js/create_order.js' %}"></script>
     <script src="{% static 'js/get_clothes_car_shop.js' %}"></script>
    
-{% block scripts %}
-{% endblock %}
+    {% block scripts %}
+    {% endblock %}
 
+    {% include "components/footer.html" %}
 </body>
 </html>

@@ -6,6 +6,7 @@ from .repository import Male
 from .repository import Female
 from .repository import general
 from django.conf import settings
+from . import forms as my_forms
 
 # Create your views here.
 
@@ -26,7 +27,6 @@ class HomeView(View):
         for category in categorys_male:
             latest_clothes_in_categorys_m.append(general.get_latest_clothe_type(category.type_name,"M"))
 
-       
         return render(request,self.template_name,context={"category_F":categorys_female,
                                                           "category_M":categorys_male,
                                                           "items_for_slide_F":latest_clothes_in_categorys_f,
@@ -63,11 +63,17 @@ class ShowProduct(View):
         clothe = general.get_clothe(id=id)
         categorys_female,categorys_male = general.get_categorys_of_genders()
         
+        color = []
+        
+        if clothe != None:
+            color = clothe.color.all()
+        
+        
         
         return render(request,self.template_name,context={"clothe":clothe,
                                                           "category_F":categorys_female,
                                                           "category_M":categorys_male,
-                                                          "color": clothe.color.all()
+                                                          "color": color 
                                                           })
 
 class ShowMaleProducts(View):
@@ -85,8 +91,9 @@ class ShowMaleProducts(View):
             clothes = Male.get_all_type_clothe(type)
             
         return render(request,"Products/products.html",{"clothes":clothes,
-                                                        "path":"F",
+                                                        "path":"M",
                                                         "category_F":categorys_female,
                                                         "category_M":categorys_male,
                                                         "type":type})    
+
 

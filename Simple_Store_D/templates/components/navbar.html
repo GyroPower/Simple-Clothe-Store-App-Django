@@ -1,6 +1,6 @@
 {% load static %}
 
- <nav class="navbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+ <nav class="navbar sticky-top bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand disable" href="{% url 'Home' %}">
       <img src="/media/img/shopping_cart.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
@@ -39,7 +39,7 @@
         </li>
         {% if request.user.is_authenticated %}
           <li class="nav-item px-lg-4">          
-            <a class="nav-link text-uppercase text-expanded" aria-current="page" href="{% url 'user-info_info' %}">User</a>
+            <a class="nav-link text-uppercase text-expanded" aria-current="page" href="{% url 'user-info' %}">User</a>
           </li>
          {% else %}
           <li class="nav-item dropdown px-lg-4">

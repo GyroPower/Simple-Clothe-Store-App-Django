@@ -55,7 +55,7 @@ class Car_Shop:
     def lower_clothe(self, clothe:models.Clothes, color:models.Colors,size:models.Sizes):
         order_key = str(clothe.id) +"-"+str(color.id) + "-"+str(size.id)
         if order_key in self.car_shop:
-            print("V")
+            
             self.car_shop[order_key]['units'] -= 1
             # the \ tells to the next line is with the one before 
             self.car_shop[order_key]["price"] = \

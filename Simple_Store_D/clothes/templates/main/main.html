@@ -4,34 +4,54 @@
     <title>Simple-Clothes-Store</title>
 {%endblock%}
 
+
+
 {%block content%}
-    <div class="container">
-        
-        
-        <div class="row">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/split.css'%}">
+    
+        <div class="row my-2 ">
+            <div class="col-1"></div>
             <div class="col">
-                <h2>Welcome to the Simple App Store</h2>
+                <h2 class="fw-light text-center">Welcome to the Simple App Store</h2>
             </div>    
+            <div class="col-1"></div>
         </div>
 
-        <div class="row">
+        <div class="row mb-3 g-1">
+            <div class="col text-center">
+                <a href="{% url 'products-M-All' %}" class="btn btn-outline-dark" style="width:22rem;">
+                    Shop Men's
+                </a>
+            </div>
+            <div class="col text-center">
+                <a href="{% url 'products-F-All'%}" class="btn btn-outline-dark" style="width:22rem;">
+                    Shop Women's
+                </a>
+            </div>
+        </div>
+        
+    
+       
+    
+
+    
+
+        <div class="row g-0">
             <div class="col">
-                <h3 class="my-4 mb-2">Latest in female clothes</h3>
+                {% with items_for_slide=items_for_slide_M Gender=M %}
+                        {% include "components/carousel.html" %}
+                    {% endwith %}
+            </div>    
+            <div class="col">
                 {% with items_for_slide=items_for_slide_F Gender=F %}
                     {% include "components/carousel.html" %}
                 {% endwith %}
             </div>
         </div>
+  
+    
+    
 
-        <div class="row">
-            <div class="col">
-                <h3 class="my-4 mb-2">Latest in male clothes</h3>
-                {% with items_for_slide=items_for_slide_M Gender=M %}
-                    {% include "components/carousel.html" %}
-                {% endwith %}
-            </div>
-        </div>
-        
-    </div>
-
+    
 {%endblock%}

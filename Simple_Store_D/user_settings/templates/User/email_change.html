@@ -1,0 +1,26 @@
+{% extends 'shared/shared.html' %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% if error%}
+                    {% include 'components/alert_danger.html' %}
+                {% endif %}
+
+
+                <form method="post" class="my-5">
+                    <h3 class="fw-normal">New Email</h3>
+                    {% csrf_token %}
+                    <div class="form-group my-2">
+                        {{form}}
+                    </div>
+                    
+                    
+                    <input type="submit" class="btn btn-dark my-3" value='submit'>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock  %}

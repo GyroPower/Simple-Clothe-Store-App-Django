@@ -9,7 +9,8 @@ urlpatterns = [
     path("products/M", views.ShowMaleProducts.as_view(),name="products-M-All"),
     path("products/F/<str:type>",views.ShowFemaleProducts.as_view(), name="product-F"),
     path("products/M/<str:type>", views.ShowMaleProducts.as_view(),name="product-M"),
-    path("products/<int:id>",views.ShowProduct.as_view(),name="detail-product")
+    path("products/<int:id>",views.ShowProduct.as_view(),name="detail-product"),
+    
 ]
 # ] + static(settings.STATIC_URL,document=settings.STATIC_ROOT)
 

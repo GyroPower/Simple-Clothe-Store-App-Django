@@ -8,4 +8,5 @@ def Total_to_pay(request:HttpRequest):
         for key, value in request.session["car_shop"].items():
             total += float(value['price'])
             
+    print(total)
     return {"total_to_pay":total}

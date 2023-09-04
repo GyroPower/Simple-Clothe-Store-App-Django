@@ -23,5 +23,12 @@ class SigupUser(forms.Form):
     
     
     def check_password_equal(self):
+        
         return self.password_user_1 == self.password_user_2
     
+
+class EmailChangeForm(forms.Form):
+    password_user = forms.CharField(widget=forms.TextInput(
+        attrs={"class":'form-control my-2',"placeholder":"Your Password"}),label="")
+    new_email = forms.EmailField(widget=forms.EmailInput(
+        attrs={"class":"form-control my-2","placeholder":"New Email"}), label="")

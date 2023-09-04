@@ -30,8 +30,8 @@
                 <div class="col">
                     <p>Color:</p>
                     {% for color in clothe.color.all %}
-                        <input type="radio" name="options-color" id="{{color.id}}" class="btn-check " autocomplete="off" value="{{color.id}}">
-                        <label class="btn " for="{{color.id}}" >
+                        <input type="radio" name="options-color" id="{{color.color_name}}" class="btn-check " autocomplete="off" value="{{color.id}}">
+                        <label class="btn " for="{{color.color_name}}" >
                             <div style="height: 30px; width: 30px; background-color: {{color.color}}; border-radius: 50%; border: 1px solid black;"></div>
                         </label>
                         {% comment %} <div style="height: 30px; width: 30px; background-color: {{color.color}}; border-radius: 50%;"></div> {% endcomment %}
@@ -43,8 +43,8 @@
                 <div class="col">
                     <p>Size:</p>
                     {% for size in clothe.sizes.all %}
-                        <input type="radio" name="options-size" id="{{size.id}}" value="{{size.id}}" class="btn-check" autocomplete="off">
-                        <label class="btn" for="{{size.id}}">{{size.size}}</label>
+                        <input type="radio" name="options-size" id="{{size.size}}" value="{{size.id}}" class="btn-check" autocomplete="off">
+                        <label class="btn" for="{{size.size}}">{{size.size}}</label>
                     {% endfor %}
                 </div>
             </div>

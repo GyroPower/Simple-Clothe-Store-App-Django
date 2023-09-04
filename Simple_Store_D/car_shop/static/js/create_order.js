@@ -10,7 +10,7 @@ async function create_order()
         });
 
         const data = await response.json();
-
+        console.log(data.response)
         if (data.response =="V")
         {
             
@@ -42,6 +42,8 @@ async function create_order()
         
         }
     }
-
+    else{
+        console.log("Can't")
+    }
 
 }
