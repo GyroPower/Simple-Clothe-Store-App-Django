@@ -91,6 +91,8 @@ class SigUpUser(View):
     def post(self,request:HttpRequest):
         form = self.form_class(request.POST)
         
+        error = "Invalid Email"
+        
         if form.is_valid():
             if form.cleaned_data.get("password_user_1") == form.cleaned_data.get("password_user_2"):
                 user = auth.save_user(form.cleaned_data.get("username"),
@@ -99,8 +101,9 @@ class SigUpUser(View):
             
                 if user:
                     return redirect("Home")
-        else:
-            return render(request,self.template_name,context={"Error":"Passwords are not the same"})
+            error = "Passwords are not equals"
+        
+        return render(request,self.template_name,context={"error":error})
 
 
 class ChangePasswordUser(View):
@@ -168,16 +171,23 @@ class ChangeEmailUser(View):
             
             form = self.form_class(request.POST) 
             
-            error = "Password incorrect"
+            error = "Incorrect email"
             
-            if form.is_valid() and request.user.check_password(form.cleaned_data.get("password_user")):
+            
+            if form.is_valid():
+                 
+                if request.user.check_password(form.cleaned_data.get("password_user")):
                 
-                user = auth.change_email(request.user.id,form.cleaned_data.get("new_email"))
+                    user = auth.change_email(request.user.id,form.cleaned_data.get("new_email"))
+                    
+                    if user:
+                        return redirect("user-info")
+                    else:
+                        error = 'Incorrect email'
 
-                if user:
-                    return redirect("user-info")
                 else:
-                    error = 'incorrect email'
+                    error = "Password incorrect"
+                
             categorys_female,categorys_male = general.get_categorys_of_genders()
             
             
@@ -190,10 +200,11 @@ class ChangeEmailUser(View):
             else:
                 email = None 
                 
-                
+            
             return render(request,template_name=self.template_name,context={"category_F":categorys_female,
                                                                             "category_M":categorys_male,
                                                                             "error":error,
+                                                                            "form":form,
                                                                             "password":password,
                                                                             "email":email})
             

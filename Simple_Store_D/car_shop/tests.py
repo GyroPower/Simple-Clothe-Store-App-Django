@@ -47,7 +47,7 @@ class ShoppingCartTests(TestCase):
         )
         clothe_female.image.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
         
-        User.objects.create_user(username='Julian',email="josejulianpower@gmail.com",password='password1234')    
+        User.objects.create_user(username='Julian',email="shoppingcarttest@gmail.com",password='password1234')    
         
         
     def setUp(self) -> None:
