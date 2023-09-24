@@ -9,6 +9,18 @@ from django.utils.html import format_html
 
 # Create your models here.
 
+# Sometimes I will refer to images_and_color_for_clothe as ColorImages or ColorImage or
+# ImagesColor and so on, sorry
+
+# There are three models used in a manyTomany field, sizes in clothes, images_for_clothe in
+# images_and_colors_for_clothe and the last mentioned in clothes model
+
+# This is very straight forward why this is like this, many sizes can be in a clothe, and 
+# the same for the colors, a clothe can have many type of colors, and a color type of clothe
+# can have many imgs to show how it looks for the customer
+
+# And the others I don't think it needs a explanation
+
 class Sizes(models.Model):
     size = models.CharField(default="S")
     
@@ -19,17 +31,6 @@ class Sizes(models.Model):
         ordering = ['size']
         verbose_name_plural = "Sizes"
 
-#This is for add the Sizes of clothes possibles
-if len(Sizes.objects.all()) < 4:
-    
-    choices_list = [("S","Small"),("M","Medium"),("L","Large"),("XL","Xtra Large")]
-    
-    for choice in choices_list:
-        
-        Sizes.objects.create(size = choice[0]).save()
-
-
-#This if for the media dir where it should save the images of the clothes 
 
 
 
@@ -57,6 +58,8 @@ class Brand(models.Model):
     class Meta:
         ordering = ['brand_name']
         verbose_name_plural = "Brands"
+
+
 
 class Type_Clothe(models.Model):
     type_name = models.CharField(primary_key=True,max_length=20)
@@ -89,18 +92,31 @@ class Colors(models.Model):
         ordering = ['color_name']
         verbose_name_plural = "Colors"
 
+class image_for_clothe(models.Model):
+    
+    image = models.ImageField(upload_to="clothes_media/",null=False)
+    
+    def __str__(self):
+        return str(self.id)
+
+class image_and_color_of_clothe(models.Model):
+    
+    images= models.ManyToManyField(image_for_clothe)
+    color = models.ForeignKey(Colors,null=True,on_delete=models.SET_NULL)
+    
+
+
 class Clothes(models.Model):
     
     description = models.CharField(max_length=30)
     type_clothe = models.ForeignKey(Type_Clothe,null=True,on_delete=models.SET_NULL)
     gender = models.CharField(choices=[("F","Female"),("M","Male")],default="F")
-    brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand,on_delete=models.CASCADE,related_name="clothes")
     age = models.CharField(choices=[("C","Child"),("T","Teen"),("A","Adult")],default="T")
     sizes = models.ManyToManyField(Sizes,blank=True)
     price = models.FloatField(null=True)
     units = models.IntegerField(default=0)
-    color = models.ManyToManyField(Colors,blank=True)
-    image = models.ImageField(upload_to="clothes_media/",null=True)
+    ColorImages = models.ManyToManyField(image_and_color_of_clothe)
     
     def __str__(self):
         return f"{self.description} | {self.brand.brand_name} | {self.type_clothe.type_name} | Gender: {self.gender}"
@@ -112,4 +128,6 @@ class Clothes(models.Model):
         ordering = ['brand']
         verbose_name_plural = "Clothes"
     
+
+
 

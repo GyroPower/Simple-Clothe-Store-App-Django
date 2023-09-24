@@ -1,0 +1,24 @@
+{% load static %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form}}
+    <button type="button" onclick="add_or_update_image({% if id %}{{id}}{% endif %})">Submit</button>
+</form>
+
+<div class="container " >
+    
+    <div class="row">
+        <div class="col">
+            <div class="card-body"  id="img_for_clothe">
+                {% if image %}
+                    <img src="{{image}}" class="card-img" style="height:300px;" alt="">
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    <script src="{% static 'js/agregate_img.js' %}"></script>
+
+</div>

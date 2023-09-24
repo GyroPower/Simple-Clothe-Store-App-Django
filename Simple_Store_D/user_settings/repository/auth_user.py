@@ -22,7 +22,8 @@ def save_user(username="",email="",password=""):
     
     try:
         user = User.objects.create_user(username,email,password)
-    
+        user.is_staff=False
+        user.is_superuser=False
         user.save()
         
         return True 

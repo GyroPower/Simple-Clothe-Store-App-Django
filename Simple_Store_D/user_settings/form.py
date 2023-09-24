@@ -32,3 +32,6 @@ class EmailChangeForm(forms.Form):
         attrs={"class":'form-control my-2',"placeholder":"Your Password"}),label="")
     new_email = forms.EmailField(widget=forms.EmailInput(
         attrs={"class":"form-control my-2","placeholder":"New Email"}), label="")
+    
+    class Media:
+        js = ['']

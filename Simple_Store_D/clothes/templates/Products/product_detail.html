@@ -1,16 +1,28 @@
 {% extends 'shared/shared.html' %}
+
+
+{% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/border_color_for_selection.css'%}">
 
-{% block content %}
+<script src="{% static "js/get_imgs_from_color.js" %}"></script>
+
 <div class="container">
     <div class="row">
-        <div class="col-6 my-3">
+
+        <div class="col-6 my-3" >
             {% comment "" %}
             Image here
             {% endcomment %}
-            <img src="{{clothe.image.url}}" class="img-fluid" >
-            
+            <div class="row" id="images">
+                {% for image in images %}
+                    <div class="col-6 my-2">
+                        <div class="card-body">
+                            <img src="{{image}}" class="card-img" style="border: 1px solid black;" >
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     
 
@@ -29,9 +41,9 @@
             <div class="row my-2">
                 <div class="col">
                     <p>Color:</p>
-                    {% for color in clothe.color.all %}
-                        <input type="radio" name="options-color" id="{{color.color_name}}" class="btn-check " autocomplete="off" value="{{color.id}}">
-                        <label class="btn " for="{{color.color_name}}" >
+                    {% for color in colors %}
+                        <input type="radio" onclick="get_images_from_color({{clothe.id}},{{color.id}})" name="options-color" id="{{color.color_name}}" class="btn-check " autocomplete="off" value="{{color.id}}">
+                        <label class="btn" for="{{color.color_name}}" >
                             <div style="height: 30px; width: 30px; background-color: {{color.color}}; border-radius: 50%; border: 1px solid black;"></div>
                         </label>
                         {% comment %} <div style="height: 30px; width: 30px; background-color: {{color.color}}; border-radius: 50%;"></div> {% endcomment %}

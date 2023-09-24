@@ -1,5 +1,7 @@
 from .. import models
 
+# This is the same as the Female.py funtions
+
 def get_all_male_clothe():
     return models.Clothes.objects.filter(gender="M").all()
 

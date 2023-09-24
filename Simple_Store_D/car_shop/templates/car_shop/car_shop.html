@@ -2,20 +2,27 @@
 {% load static %}
 <script src="{% static 'js/delete_item.js' %}"></script>
 <div class="row ">
-    <div class="col-2" id="Items-car">
+    <div id="Items-car">
         {% if request.session.car_shop.items %}
             {% for key, value in request.session.car_shop.items %}
-                <div class="card bg-dark text-light my-2" name="item-car-shop" id="{{value.clothe_id}}-{{value.color_id}}-{{value.size_id}}" style="width: 23rem;">
-                    <div class="card-body">
-                        <p class="card-text" name="Item">Item: {{value.description}}</p>
-                        <p class="card-text" id="U-{{value.clothe_id}}-{{value.color_id}}-{{value.size_id}}">Units: {{value.units}}</p>
-                        <p class="card-text" id="P-{{value.clothe_id}}-{{value.color_id}}-{{value.size_id}}">Total: {{value.price}}</p>
-                        <p class="card-text">Color:</p>
-                        <div style="height: 30px; width: 30px; background-color: {{value.color}}; border-radius: 50%; border: 1px solid black;"></div>
-                        <button type="button" class="btn btn-outline-dark text-light" style="font-size: 13px"  onclick="increment_decrement({{value.clothe_id|stringformat:'s'}}+'-'+{{value.color_id|stringformat:'s'}}+'-'+{{value.size_id|stringformat:'s'}},'low')">-</button>
-                        <button type="button" class="btn btn-outline-dark text-light" style="font-size: 13px"  onclick="increment_decrement({{value.clothe_id|stringformat:'s'}}+'-'+{{value.color_id|stringformat:'s'}}+'-'+{{value.size_id|stringformat:'s'}},'add')">+</button>
-                        <button type="button" class="btn btn-outline-warning p-1 my-2" style="font-size: 13px" onclick="delete_item({{value.clothe_id|stringformat:'s'}}+'-'+{{value.color_id|stringformat:'s'}}+'-'+{{value.size_id|stringformat:'s'}})">Delete Item</button>
+                <div class="card bg-dark text-light my-4" name="item-car-shop" id="{{value.clothe_id}}-{{value.color_id}}-{{value.size_id}}" style="width: 23rem;">
+                    <img src="{{value.img}}" class="card-img-top" style="height:400px;" >
+                    <div class="row g-0">
+                        
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text" name="Item">Item: {{value.description}}</p>
+                                <p class="card-text" id="U-{{value.clothe_id}}-{{value.color_id}}-{{value.size_id}}">Units: {{value.units}}</p>
+                                <p class="card-text" id="P-{{value.clothe_id}}-{{value.color_id}}-{{value.size_id}}">Total: {{value.price}}</p>
+                                <p class="card-text">Color:</p>
+                                <div style="height: 30px; width: 30px; background-color: {{value.color}}; border-radius: 50%; border: 1px solid black;"></div>
+                                <button type="button" class="btn btn-outline-dark text-light" style="font-size: 13px"  onclick="increment_decrement({{value.clothe_id|stringformat:'s'}}+'-'+{{value.color_id|stringformat:'s'}}+'-'+{{value.size_id|stringformat:'s'}},'low')">-</button>
+                                <button type="button" class="btn btn-outline-dark text-light" style="font-size: 13px"  onclick="increment_decrement({{value.clothe_id|stringformat:'s'}}+'-'+{{value.color_id|stringformat:'s'}}+'-'+{{value.size_id|stringformat:'s'}},'add')">+</button>
+                                <button type="button" class="btn btn-outline-warning p-1 my-2" style="font-size: 13px" onclick="delete_item({{value.clothe_id|stringformat:'s'}}+'-'+{{value.color_id|stringformat:'s'}}+'-'+{{value.size_id|stringformat:'s'}})">Delete Item</button>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
              {% endfor %}
         {% else %}

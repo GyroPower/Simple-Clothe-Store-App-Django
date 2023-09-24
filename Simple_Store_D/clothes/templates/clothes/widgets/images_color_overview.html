@@ -1,0 +1,55 @@
+{% load static %}
+<script src="{% static "js/add_img_color.js" %}"></script>
+<script src="{% static "js/edit_img_color.js" %}"></script>
+<script src="{% static "js/delete_image_color.js" %}"></script>
+<div class="row">
+    <div class="row">
+
+        <div class="container" id="images_color">
+            {% for image_color in widget.images_color %}
+                <div id="{{image_color.0}}">
+                    <div id="{{image_color.0}}_{{image_color.2.2}}"></div>
+                    <div id="div_errors_{{image_color.0}}"></div>
+                    <input type="checkbox" name="ColorImages" checked hidden value="{{image_color.0}}">
+                    <div class="row" id="images_{{image_color.0}}">
+                        {% for image in image_color.1 %}
+                            <div class="col-4">
+                                <div class="card-body">
+                                    <img src="{{image.1}}"  class="card-img"  alt="">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row my-2" id="color_{{image_color.0}}">
+                        <div class="col text-light">
+                            <span id="{{image_color.2.2}}" style="display: inline-block; width: 30px; height: 30px; background-color: {{ image_color.2.0 }};  border: 1px solid black;"></span>
+                            <p>{{image_color.2.1}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button"class='btn btn-dark' onclick="edit_img_color({{image_color.0}},{{widget.parent_id}},{{image_color.2.2}})">Edit</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-dark" data-bs-toggle="modal"  data-bs-target="#ModalForDelete_{{image_color.0}}">Delete</button>
+                            {% include "clothes/widgets/confirm_modal_delete.html" %}
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        
+        </div>
+    </div>
+
+    <div class="row my-2">
+        
+        <div class="container" id='div_add'>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-dark" onclick="add_img_color()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

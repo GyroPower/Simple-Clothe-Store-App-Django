@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "clothes",
     "car_shop",
     "user_settings",
-    "colorfield"
+    "colorfield",
+    'django_middleware_global_request',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_middleware_global_request.middleware.GlobalRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'Simple_Store_D.urls'

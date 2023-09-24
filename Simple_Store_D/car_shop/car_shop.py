@@ -17,7 +17,7 @@ class Car_Shop:
             self.car_shop = self.session["car_shop"] = {}
         
     
-    def agregate_to_car(self,clothe:models.Clothes,color:models.Colors,size:models.Sizes):
+    def agregate_to_car(self,clothe:models.Clothes,color:models.Colors,size:models.Sizes,image_url):
         # Adding the new clothe to shop in the car_shop
         order_key = str(clothe.id)+"-"+str(color.id) +"-"+str(size.id)
         
@@ -34,7 +34,7 @@ class Car_Shop:
                 "clothe_type": clothe.type_clothe.type_name,
                 "price": round(clothe.price,2),
                 "units": 1,
-                "img": clothe.image.url
+                "img": image_url
             }
         else:
             # if is alredy in the car_shop, just increments the units and the price of the 

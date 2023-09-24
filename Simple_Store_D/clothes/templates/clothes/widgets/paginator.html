@@ -1,0 +1,29 @@
+{% load static %}
+<script src="{% static 'js/pass_query_paginator.js' %}"></script>
+
+<div>
+    <div id="paginator" class="my-2">
+
+      {% if page_obj.has_previous%}
+       <button type="button" class="btn btn-outline-dark" onclick="query_pagiator({{previous}})">&lt;</button>
+      {% else %}
+        <button type="button" class="btn btn-outline-dark" >&lt;</button>
+      {% endif %}  
+
+      {% for enumerator in page_obj.paginator.page_range %}
+        {% if page_obj.number == enumerator %}
+        <button type="button" class="btn btn-dark" >{{enumerator}}</button>
+        {%else%}
+        <button type="button" class="btn btn-outline-dark" onclick="query_pagiator({{enumerator}})">{{enumerator}}</button>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next%}
+        <button type="button" class="btn btn-outline-dark" onclick="query_pagiator({{next}})">&gt;</button>
+      {% else %}
+        <button type="button" class="btn btn-outline-dark">&gt;</button>
+      {% endif %}
+
+    </div>
+</div>
+

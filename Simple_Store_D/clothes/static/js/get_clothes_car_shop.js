@@ -1,8 +1,4 @@
-function test_string(string)
-{
-    console.log(typeof string);
-    console.log(string);
-}
+
 
 async function add_item_to_car_shop(id)
 {
@@ -10,6 +6,8 @@ async function add_item_to_car_shop(id)
     let color;
     let sizes = document.getElementsByName("options-size");
     let size;
+
+    //Getting the cheked colors and sizes for put in the shopping cart
 
     for (i=0;i<colors.length;i++)
     {
@@ -42,7 +40,7 @@ async function add_item_to_car_shop(id)
     
     let empy_div = document.getElementById("empty-items");
 
-
+    //If the car is empty it has empty_div telling that there is nothing, this remove it
     if (empy_div!=null)
     {
         while(empy_div.hasChildNodes())
@@ -54,7 +52,8 @@ async function add_item_to_car_shop(id)
     id = String(id);
 
 
-
+    //if the response contain that the item is just once, mean it is recent added, and 
+    //it has to be created a html given the info of the item in the shopping cart
     if (data.units == 1)
     {
         const col = document.getElementById("Items-car")
@@ -66,7 +65,29 @@ async function add_item_to_car_shop(id)
         div_Item.style.width = "23rem";
         div_Item.id = id_string;
 
+        let div_row = document.createElement('div');
+        div_row.classList.add('row','g-0');
+
+        div_Item.appendChild(div_row);
+
+        let div_col_img = document.createElement('div');
+        div_col_img.classList.add('col-md-4');
+
+        div_row.appendChild(div_col_img);
+
+        let img = document.createElement('img');
+        img.src = data.image;
+        img.classList.add('img-fluid','rounded-start')
+
+        div_col_img.appendChild(img);
+
+
+        let div_col_body = document.createElement('div');
+        div_col_body.classList.add('col-md-8');
+
         let item_body = document.createElement("div");
+
+        div_col_body.appendChild(item_body);
 
         item_body.classList.add("card-body");
 

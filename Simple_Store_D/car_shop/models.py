@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 
 user = get_user_model()
 
+# This create a instance to store a regist of a clothe order, many of this can be in a 
+# in a great order of differents colors
 
 class Order_Clothe(models.Model):
     User = models.ForeignKey(user,on_delete=models.PROTECT)
@@ -19,6 +21,7 @@ class Order_Clothe(models.Model):
     def __str__(self):
         return f"{self.User.get_username()} | {self.clothe.description} | {self.create_at} | {self.units}"
     
+# This is for a great register of differents clothes ordered at the same time in the shopping cart
 class Order(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)

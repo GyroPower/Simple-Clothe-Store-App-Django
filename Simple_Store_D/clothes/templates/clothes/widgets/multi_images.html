@@ -1,0 +1,32 @@
+{% load static %}
+<script src="{% static 'js/add_img.js' %}"></script>
+<script src="{% static 'js/update_img_backend.js' %}"></script>
+<script src="{% static 'js/delete_img.js' %}"></script>
+
+<div id="images_clothes" class="btn-group-vertical form-group">
+    
+    <div  class="container">
+        <div class="row" id="image_for_clothe">
+            {% for obj in widget.queryset %}
+                <div class="col-6" id="col_{{obj.0}}">
+                    <div class="card-body">
+                        <input type="checkbox" checked hidden value="{{obj.0}}" id="input_{{obj.0}}" name="images" >
+                        <img src="{{obj.1}}" id="{{obj.0}}" class="card-img" style="height:20rem;" alt="">
+                        <button type='button' class="btn btn-dark" onclick="delete_img({{obj.0}})">Delete</button>
+                        <button type='button' class="btn btn-dark" onclick="update_img({{obj.0}})">Update</button>
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container my-2">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-dark" type="button" onclick="add_img()">Add</button>
+            </div>
+        </div>
+    </div>
+    
+</div>

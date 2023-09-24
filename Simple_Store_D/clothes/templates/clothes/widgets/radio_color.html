@@ -1,0 +1,29 @@
+
+{% load static %}
+<script src="{% static 'js/add_color.js' %}"></script>
+
+
+
+<div id="colors" class="bg-dark form-group" style="height:45rem; border-radius:25px;" >
+    <ul id="list_colors" class="list-group bg-dark" style="line-height:10rem;">
+        {% for color in widget.page_obj %}
+            <li class="list-group-item text-light bg-dark">
+                <input type="radio" name="color" id="colors_{{color.id|stringformat:'s'}}" class="btn-check" value="{{ color.id|stringformat:'s' }}" {% if color.id|stringformat:'s' in widget.value%} checked {%endif%} >
+                <label for="colors_{{color.id|stringformat:'s'}}" class="stretched-link btn text-light">
+                    <span style="display: inline-block; width: 30px; height: 30px; background-color: {{ color.color }};  border: 1px solid black;"></span>
+                        {{color}}
+                </label>
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="button" class="btn btn-outline-light my-2" style="margin-left:10px;" onclick="add_color()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+    </button>
+</div>
+{% with page_obj=widget.page_obj previous=widget.previous next=widget.next %}
+  {% include 'clothes/widgets/paginator.html' %}
+{% endwith %}
+
+
