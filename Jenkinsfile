@@ -3,8 +3,8 @@ pipeline {
     stages{
         stage('build'){
             steps {
-                sh 'cd Simple_Store_D'
-                sh 'py manage.py runserver'
+                sh 'git clone https://github.com/GyroPower/Simple-Clothe-Store-App-Django.git'
+                sh 'echo "made it"'
             }
         }
     }
