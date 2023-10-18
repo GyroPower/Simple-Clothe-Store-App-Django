@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  simple-store:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+
+    command: bash -c "python manage.py migrate --noinput &&  gunicorn Simple_Store_D.wsgi:application --bind 0.0.0.0:8000" 
+    
+    volumes: 
+      - static_volume:/home/Simple_Store_D/web/static
+      - media_volume:/home/Simple_Store_D/web/media
+
+    expose: 
+      - 8000 
+    
+    environment:
+      - DATABASE_HOSTNAME=${DATABASE_HOSTNAME}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - SECRET_KEY=${SECRET_KEY}
+      - DEFAULT_EMAIL=${DEFAULT_EMAIL}
+      - DEFAULT_PASSWORD=${DEFAULT_PASSWORD}
+      - email=${email}
+      - password=${password}
+       
+    depends_on:
+      - postgresql 
+
+  postgresql:
+    image: postgres
+
+    ports:
+      - 5434:5432
+    
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    
+  nginx:
+    build: ./nginx 
+    
+    volumes:
+      - static_volume:/home/Simple_Store_D/web/static
+      - media_volume:/home/Simple_Store_D/web/media
+    
+    ports:
+      - 8001:80 
+    
+    depends_on:
+      - simple-store
+  
+volumes:
+  postgres-db:
+  static_volume: 
+  media_volume: 
+    

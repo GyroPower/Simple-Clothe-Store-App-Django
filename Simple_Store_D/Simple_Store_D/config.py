@@ -8,9 +8,11 @@ class Settings(BaseSettings):
     database_name : str
     database_username : str 
     secret_key : str
+    default_email:str 
+    default_password:str
     email: str 
     password: str
- 
+    
 
     #we use pydantic to collect the necesary data from .env file 
     #for our schema and validated it 

@@ -1,0 +1,52 @@
+version: '3'
+services:
+  simple-store:
+    build: .
+    
+    
+    ports: 
+      - 7000:8000
+    
+    command: bash -c "gunicorn Simple_Store_D.wsgi:application --bind 0.0.0.0:8000" 
+
+    depends_on:
+      - postgresql
+
+
+    environment:
+      - DATABASE_HOSTNAME=${DATABASE_HOSTNAME}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - SECRET_KEY=${SECRET_KEY}
+      - DEFAULT_EMAIL=${DEFAULT_EMAIL}
+      - DEFAULT_PASSWORD=${DEFAULT_PASSWORD}
+      - email=${email}
+      - password=${password}
+       
+
+  postgresql:
+    image: postgres 
+    ports:
+      - 5434:5432
+    
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    
+    
+  my-pgadmin:
+    image: dpage/pgadmin4
+
+    ports: 
+      - 82:80
+    
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DEFAULT_PASSWORD}
+
+volumes:
+  postgres-db:

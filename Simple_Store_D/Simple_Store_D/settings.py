@@ -28,7 +28,7 @@ SECRET_KEY = settings_core.secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost",'127.0.0.1']
 
 
 # Application definition
@@ -87,14 +87,13 @@ WSGI_APPLICATION = 'Simple_Store_D.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': settings_core.database_name,
+        'NAME': settings_core.database_name,
         "USER": settings_core.database_username,
         "PASSWORD": settings_core.database_password,
         "HOST": settings_core.database_hostname,
-        "DATABASE" : settings_core.database_port
+        "PORT" : settings_core.database_port
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -130,9 +129,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR,"static")
+STATIC_ROOT = os.path.join(BASE_DIR,"static/")
+STATIC_URL = "/static/"
+
 
 MEDIA_URL = "/media/"
 
@@ -164,5 +164,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = settings_core.email
 EMAIL_HOST_PASSWORD = settings_core.password
 
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 

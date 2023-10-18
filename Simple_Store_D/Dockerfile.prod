@@ -1,0 +1,46 @@
+FROM python:3.11.4-slim-buster as builder 
+
+WORKDIR /home/src/Simple_Store_D
+
+RUN apt-get update && \ 
+    apt-get install -y --no-install-recommends gcc
+
+# RUN pip install --upgrade pip 
+# RUN pip install flake8==6.0.0 
+# COPY . /home/src/Simple_Store_D/
+# RUN flake8 --ignore=E501,F401 . 
+
+
+COPY ./requirements.txt . 
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/src/Simple_Store_D/wheels -r requirements.txt 
+
+FROM python:3.11.4-slim-buster 
+
+RUN mkdir -p /home/Simple_Store_D 
+
+RUN addgroup --system app && adduser --system --group app
+
+ENV HOME=/home/Simple_Store_D 
+ENV APP_HOME=/home/Simple_Store_D/web 
+RUN mkdir $APP_HOME 
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media  
+WORKDIR $APP_HOME 
+
+RUN apt-get update && apt-get install -y --no-install-recommends netcat-traditional
+COPY --from=builder /home/src/Simple_Store_D/wheels /wheels 
+COPY --from=builder /home/src/Simple_Store_D/requirements.txt . 
+RUN pip install --upgrade pip 
+RUN pip install --no-cache /wheels/*  
+
+COPY ./entrypoint.prod.sh . 
+RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.prod.sh 
+RUN chmod +x $APP_HOME/entrypoint.prod.sh 
+
+COPY . $APP_HOME 
+
+RUN chown -R app:app $APP_HOME 
+
+USER app
+
+ENTRYPOINT [ "/home/Simple_Store_D/web/entrypoint.prod.sh" ]

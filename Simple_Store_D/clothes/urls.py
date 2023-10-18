@@ -3,6 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static 
 from . import views
 
+# urls of the app
+
 urlpatterns = [
     path("",views.HomeView.as_view(),name="Home"),
     path("products/F", views.ShowFemaleProducts.as_view(),name="products-F-All"),
@@ -23,8 +25,7 @@ urlpatterns = [
     path("get-list-img",views.last_item_in_session),
     path('delete-img-color/<str:id>',views.Add_images_color_in_form.as_view()),
     path('get-imgs-from-colorImage/<str:id>/<str:color_id>',views.get_images_of_imagesColor)
-]
-# ] + static(settings.STATIC_URL,document=settings.STATIC_ROOT)
+] 
 
 
 

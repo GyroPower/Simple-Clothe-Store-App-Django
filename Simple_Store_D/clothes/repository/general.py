@@ -4,15 +4,21 @@ from .. import models
 from PIL import Image 
 import os 
 
+# This are many funtions for the management of the models related of the clothe model and 
+# the clothe model itself
+
 def get_categorys_of_genders():
+    # retrieves all the categorys in the clothes 
     female_categorys = models.Type_Clothe.objects.filter(clothes__gender="F").distinct("type_name")
     male_categorys = models.Type_Clothe.objects.filter(clothes__gender="M").distinct("type_name")
     return female_categorys,male_categorys
 
 def get_latest_clothe_type(type_name:str,gender:str):
+    # Retrieve the latest clothe in a type
     clothe = models.Clothes.objects.filter(type_clothe__type_name=type_name,gender=gender).latest("id")
     
-    
+    # And retrieves a resized image for a carousel to expose the most recents clothes 
+    # of a type in a gender clothe
     slash = clothe.ColorImages.first().images.first().image.name.find("/")
     name = clothe.ColorImages.first().images.first().image.name[slash+1:]
     dot = name.find(".")
@@ -36,6 +42,7 @@ def get_latest_clothe_type(type_name:str,gender:str):
     return (clothe,"/media/resized/"+new_name)
 
 def delete_img(id):
+    # This delete a specific img
     try:
         image=models.image_for_clothe.objects.get(id=id)
         image.delete()
@@ -44,7 +51,7 @@ def delete_img(id):
         return False
    
 def get_clothe(id):
-    
+    # get a specific clothe instance
     try:
     
         return models.Clothes.objects.get(id=id)
@@ -52,11 +59,16 @@ def get_clothe(id):
         return None 
     
 def get_color(color_id):
+    # get a specific color instance
     return models.Colors.objects.get(id=color_id)
 
 
 def get_last_color():
+    # get the latest color instance
     return models.Colors.objects.latest("id")
+
+
+# Mostly of the functions are very descriptive of what them does 
 
 def get_size(size_id):
     return models.Sizes.objects.get(id=size_id)
@@ -153,6 +165,8 @@ def create_images_color(imgs,color):
     
     image_color = models.image_and_color_of_clothe(color=color)
     image_color.save()
+    
+    # add the imgs to the newest imageColor instance
     for image in imgs:
         image_color.images.add(image)
         
