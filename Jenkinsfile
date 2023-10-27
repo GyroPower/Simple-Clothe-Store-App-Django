@@ -1,11 +1,17 @@
 pipeline {
     agent any
+
+    environment {
+        SIMPLE_STORE_DATABASE_HOSTNAME = credentials('')
+    }
+
     stages{
         stage('build test'){
             steps {
+                echo "${SIMPLE_STORE_DATABASE_HOSTNAME}"
                 powershell '''
                     cd Simple_Store_D
-                    echo ${SIMPLE_STORE_DATABASE_HOSTNAME}
+                    
                     ls
                 '''
                 //     docker-compose -f Simple-Store.dev.yml up -d --build
