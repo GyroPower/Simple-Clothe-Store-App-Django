@@ -1,7 +1,9 @@
 version: '3'
 services:
   simple-store:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
     
     
     ports: 
@@ -22,8 +24,8 @@ services:
       - SIMPLE_STORE_SECRET_KEY=${SIMPLE_STORE_SECRET_KEY}
       - SIMPLE_STORE_DEFAULT_EMAIL=${SIMPLE_STORE_DEFAULT_EMAIL}
       - SIMPLE_STORE_DEFAULT_PASSWORD=${SIMPLE_STORE_DEFAULT_PASSWORD}
-      - SIMPLE_STORE_email=${SIMPLE_STORE_email}
-      - SIMPLE_STORE_password=${SIMPLE_STORE_password}
+      - SIMPLE_STORE_EMAIL=${SIMPLE_STORE_EMAIL}
+      - SIMPLE_STORE_PASSWORD=${SIMPLE_STORE_PASSWORD}
        
 
   postgresql:
@@ -37,16 +39,5 @@ services:
     volumes:
       - postgres-db:/var/lib/postgresql/data
     
-    
-  my-pgadmin:
-    image: dpage/pgadmin4
-
-    ports: 
-      - 82:80
-    
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${DEFAULT_PASSWORD}
-
 volumes:
   postgres-db:
