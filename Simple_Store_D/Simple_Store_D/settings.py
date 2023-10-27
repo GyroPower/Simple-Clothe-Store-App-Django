@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'Simple_Store_D.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': settings_core.database_name,
-        "USER": settings_core.database_username,
-        "PASSWORD": settings_core.database_password,
-        "HOST": settings_core.database_hostname,
-        "PORT" : settings_core.database_port
+        'NAME': settings_core.simple_store_database_name,
+        "USER": settings_core.simple_store_database_username,
+        "PASSWORD": settings_core.simple_store_database_password,
+        "HOST": settings_core.simple_store_database_hostname,
+        "PORT" : settings_core.simple_store_database_port
     }
 }
 
@@ -161,8 +161,8 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True 
 
 EMAIL_PORT = 587
-EMAIL_HOST_USER = settings_core.email
-EMAIL_HOST_PASSWORD = settings_core.password
+EMAIL_HOST_USER = settings_core.simple_store_email
+EMAIL_HOST_PASSWORD = settings_core.simple_store_password
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:8001"]
 
