@@ -2,16 +2,16 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    database_hostname : str 
-    database_port : str 
-    database_password: str
-    database_name : str
-    database_username : str 
-    secret_key : str
-    default_email:str 
-    default_password:str
-    email: str 
-    password: str
+    simple_store_database_hostname : str 
+    simple_store_database_port : str 
+    simple_store_database_password: str
+    simple_store_database_name : str
+    simple_store_database_username : str 
+    simple_store_secret_key : str
+    simple_store_default_email:str 
+    simple_store_default_password:str
+    simple_store_email: str 
+    simple_store_password: str
     
 
     #we use pydantic to collect the necesary data from .env file 
