@@ -1,9 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        SIMPLE_STORE_DATABASE_HOSTNAME = credentials('')
-    }
 
     stages{
         stage('build test'){
