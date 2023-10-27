@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = settings_core.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost",'127.0.0.1']
 
@@ -164,5 +164,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = settings_core.email
 EMAIL_HOST_PASSWORD = settings_core.password
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8001"]
 

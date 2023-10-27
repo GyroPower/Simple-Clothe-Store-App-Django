@@ -1,10 +1,12 @@
 pipeline {
-    agent {doker { image 'python:3.11.5-alphine.18'}}
+    agent any
     stages{
-        stage('build'){
+        stage('build test'){
             steps {
-                sh 'git clone https://github.com/GyroPower/Simple-Clothe-Store-App-Django.git'
-                sh 'echo "made it"'
+                bat 'cd/Simple_Store_D'
+                bat 'docker-compose -f docker-compose.dev.yml up -d --build '
+                bat 'docker-compose -f docker-compose.dev.yml exec simple-store python manage.py test'
+                bat 'docker-compose -f docker-compose.dev.yml down -v'
             }
         }
     }
