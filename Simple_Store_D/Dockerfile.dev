@@ -16,4 +16,4 @@ RUN chmod +x /home/src/entrypoint.sh
 COPY . .
 
 
-ENTRYPOINT ["/home/src/entrypoint.sh"]
+# ENTRYPOINT ["/home/src/entrypoint.sh"]
