@@ -8,8 +8,7 @@ pipeline {
                 
                 powershell '''
                     docker-compose -f Simple_Store_D/Simple-Store.dev.yml up -d --build
-                    docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store ls
-                    docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store entrypoint.sh
+                    docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store /home/src/entrypoint.sh
                     docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store python manage.py test
                     docker-compose -f Simple_Store_D/Simple-Store.dev.yml down 
                 '''
