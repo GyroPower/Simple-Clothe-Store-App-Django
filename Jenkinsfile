@@ -6,7 +6,7 @@ pipeline {
         stage('build test'){
             steps {
                 
-                powershell '''
+                bat '''
                     cd Simple_Store_D
                     docker-compose -f Simple-Store.dev.yml up --build
                     docker-compose -f Simple-Store.dev.yml exec simple-store python manage.py test
