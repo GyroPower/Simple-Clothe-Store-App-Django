@@ -10,7 +10,7 @@ pipeline {
                     cd Simple_Store_D
                     ls
                 
-                    docker-compose -f Simple-Store.dev.yml up -d --build
+                    docker-compose -f Simple-Store.dev.yml up  --build
                     docker-compose -f Simple-Store.dev.yml exec simple-store python manage.py test
                     docker-compose -f Simple-Store.dev.yml down -v
                 '''
