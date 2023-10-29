@@ -23,11 +23,15 @@ pipeline {
 
                 
                 script{
-                    powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store python manage.py test'
+                    catchError (buildResult: 'FAILURE', stageResult: 'FAILURE'){
+                        powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store python manage.py test'
+                    }
+                    
 
                     if (currentBuidl.result == "FAILURE"){
                         echo "Stage Failed"
-                        powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml down'        
+                        powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml down'  
+                        error("Stage Failed")      
                     }
                 }
             }
