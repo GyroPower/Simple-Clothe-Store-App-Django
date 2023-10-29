@@ -20,14 +20,23 @@ pipeline {
 
         stage('Test'){
             steps{
-                powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store python manage.py test'
 
+                
+                script{
+                    powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml exec simple-store python manage.py test'
+
+                    if (currentBuidl.result == "FAILURE"){
+                        echo "Stage Failed"
+                        powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml down'        
+                    }
+                }
             }
         }
 
-        stage('Down dev app container'){
+        stage('Down dev app container and start Prod project'){
             steps{
                 powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml down'
+                echo "Creating the prod project"
             }
         }
     }
