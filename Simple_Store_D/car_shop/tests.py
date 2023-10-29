@@ -32,10 +32,22 @@ class ShoppingCartTests(TestCase):
             price=29.99,
             units=10,
             
-        )      
-        clothe_male.image.save('jacket_calvin_test.jpg',File(open("clothes/media_tes/jacket_calvin_test.jpg",'rb')))
+        )     
+                
+        image = models.image_for_clothe.save('jacket_calvin_test.jpg',File(open("clothes/media_tes/jacket_calvin_test.jpg",'rb')))
+        images_and_color1 = models.image_and_color_of_clothe.objects.create()
+        images_and_color1.images.add(image)
+        images_and_color1.color = color1
+        
+        images_and_color2 = models.image_and_color_of_clothe.objects.create()
+        images_and_color2.images.add(image)
+        images_and_color2.color = color2
+        
+        clothe_male.ColorImages.add(images_and_color1)
+        clothe_male.ColorImages.add(images_and_color2)
+        # clothe_male.image.save('jacket_calvin_test.jpg',File(open("clothes/media_tes/jacket_calvin_test.jpg",'rb')))
         clothe_male.sizes.set([size1,size2])
-        clothe_male.color.set([color1,color2])
+        clothe_male.save()
         
         clothe_female = models.Clothes.objects.create(
             description="T-shirt UX",
@@ -45,8 +57,20 @@ class ShoppingCartTests(TestCase):
             price=20.99,
             units=10,
         )
-        clothe_female.image.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
         
+        image = models.image_for_clothe.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
+        images_and_color1 = models.image_and_color_of_clothe.objects.create()
+        images_and_color1.images.add(image)
+        images_and_color1.color=color1 
+        
+        images_and_color2 = models.image_and_color_of_clothe.objects.create()
+        images_and_color2.images.add(image)
+        images_and_color2.color=color2
+        #clothe_female.image.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
+        
+        clothe_female.sizes.set([size1,size2])
+        
+        clothe_female.save()
         User.objects.create_user(username='Julian',email="shoppingcarttest@gmail.com",password='password1234')    
         
         
