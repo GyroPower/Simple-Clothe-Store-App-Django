@@ -137,9 +137,12 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
-
+MEDIA_TEST = os.path.join(MEDIA_ROOT,"resized/")
 if not os.path.isdir(MEDIA_ROOT):
     os.mkdir(MEDIA_ROOT)
+
+if not os.path.isdir(MEDIA_TEST):
+    os.mkdir(MEDIA_TEST)
     
 if not os.path.isdir(STATIC_ROOT):
     os.mkdir(STATIC_ROOT)
