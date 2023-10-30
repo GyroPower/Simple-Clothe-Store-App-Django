@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
 
-    command: bash -c "python manage.py migrate --noinput &&  gunicorn Simple_Store_D.wsgi:application --bind 0.0.0.0:8000" 
+    command: bash -c "gunicorn Simple_Store_D.wsgi:application --bind 0.0.0.0:8000" 
     
     volumes: 
       - static_volume:/home/Simple_Store_D/web/static
