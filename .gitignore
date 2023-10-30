@@ -3,3 +3,4 @@ venv/
 .env
 clothes_media/
 resized/
+.dev.env 
