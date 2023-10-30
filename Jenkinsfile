@@ -40,6 +40,7 @@ pipeline {
         stage('Down dev project version'){
             steps{
                 powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml down'
+                powershell 'docker network ls'
                 
             }
         }
@@ -49,7 +50,7 @@ pipeline {
                 echo "Creating the prod project"
                 powershell '''
                     docker-compose -f Simple_Store_D/Simple-Store.prod.yml up -d --build
-                    docker ps
+                
                     docker-compose -f Simple_Store_D/Simple-Store.prod.yml exec simple-store python manage.py makemigrations
                     docker-compose -f Simple_Store_D/Simple-Store.prod.yml exec simple-store python manage.py migrate
                 '''
