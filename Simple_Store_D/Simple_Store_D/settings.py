@@ -138,6 +138,7 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_TEST = os.path.join(MEDIA_ROOT,"resized/")
+
 if not os.path.isdir(MEDIA_ROOT):
     os.mkdir(MEDIA_ROOT)
 
