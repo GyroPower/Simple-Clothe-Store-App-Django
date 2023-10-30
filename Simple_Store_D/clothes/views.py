@@ -100,7 +100,7 @@ class ShowProduct(View):
                 
             for image in colorImages.first().images.all():
                 images.append(image.image.url)    
-                print(image.image.url)
+                #print(image.image.url)
                
         
             

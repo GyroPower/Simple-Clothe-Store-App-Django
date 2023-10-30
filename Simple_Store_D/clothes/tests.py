@@ -37,9 +37,24 @@ class ClothesTests(TestCase):
             units=10,
             
         )      
-        clothe_male.image.save('jacket_calvin_test.jpg',File(open("clothes/media_tes/jacket_calvin_test.jpg",'rb')))
+        image = models.image_for_clothe.objects.create()
+        image.image.save('jacket_calvin_test.jpg',File(open("clothes/media_tes/jacket_calvin_test.jpg",'rb')))
+        images_and_color1 = models.image_and_color_of_clothe.objects.create()
+        images_and_color1.images.add(image)
+        images_and_color1.color = color1
+        images_and_color1.save()
+        
+        
+        images_and_color2 = models.image_and_color_of_clothe.objects.create()
+        images_and_color2.images.add(image)
+        images_and_color2.color = color2
+        images_and_color2.save()
+        
+        clothe_male.ColorImages.add(images_and_color1)
+        clothe_male.ColorImages.add(images_and_color2)
+        # clothe_male.image.save('jacket_calvin_test.jpg',File(open("clothes/media_tes/jacket_calvin_test.jpg",'rb')))
         clothe_male.sizes.set([size1,size2])
-        clothe_male.color.set([color1,color2])
+        clothe_male.save()
         
         clothe_female = models.Clothes.objects.create(
             description="T-shirt UX",
@@ -49,11 +64,28 @@ class ClothesTests(TestCase):
             price=20.99,
             units=10,
         )
-        clothe_female.image.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
-        clothe_female.sizes.set([size1])
-        clothe_female.color.set([color1])
+        image = models.image_for_clothe.objects.create()
+        image.image.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
+        images_and_color1 = models.image_and_color_of_clothe.objects.create()
+        images_and_color1.images.add(image)
+        images_and_color1.color=color1 
+        images_and_color1.save()
         
+        images_and_color2 = models.image_and_color_of_clothe.objects.create()
+        images_and_color2.images.add(image)
+        images_and_color2.color=color2
+        images_and_color2.save()
+        #clothe_female.image.save('calvin_klein_tshirt_test.jpg',File(open("clothes/media_tes/calvin_klein_tshirt_test.jpg",'rb')))
+        
+        clothe_female.ColorImages.add(images_and_color1)
+        clothe_female.ColorImages.add(images_and_color2)
+        clothe_female.sizes.set([size1,size2])
+        clothe_female.save()
+        
+        # for ColorImage in clothe_female.ColorImages.all():
+        #     print('ColorImage_color_id: ',ColorImage.color)
     
+        
     def setUp(self) -> None:
         self.client = Client()    
     
@@ -99,7 +131,14 @@ class ClothesTests(TestCase):
     
     def test_z_delete_media(self):
                      
-        os.remove("media/resized/jacket_calvin_test_resized.jpg")        
-        os.remove("media/clothes_media/jacket_calvin_test.jpg")
-        os.remove("media/resized/calvin_klein_tshirt_test_resized.jpg")
-        os.remove("media/clothes_media/calvin_klein_tshirt_test.jpg")
+        if os.path.isfile("media/resized/jacket_calvin_test_resized.jpg"):     
+            os.remove("media/resized/jacket_calvin_test_resized.jpg")        
+        
+        if os.path.isfile("media/clothes_media/jacket_calvin_test.jpg"):
+            os.remove("media/clothes_media/jacket_calvin_test.jpg")
+        
+        if os.path.isfile("media/resized/calvin_klein_tshirt_test_resized.jpg"):
+            os.remove("media/resized/calvin_klein_tshirt_test_resized.jpg")
+        
+        if os.path.isfile("media/clothes_media/calvin_klein_tshirt_test.jpg"):
+            os.remove("media/clothes_media/calvin_klein_tshirt_test.jpg")

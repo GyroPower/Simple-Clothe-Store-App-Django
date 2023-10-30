@@ -17,6 +17,7 @@ def get_latest_clothe_type(type_name:str,gender:str):
     # Retrieve the latest clothe in a type
     clothe = models.Clothes.objects.filter(type_clothe__type_name=type_name,gender=gender).latest("id")
     
+    # print('clothe_image: ',clothe.ColorImages.first().id)
     # And retrieves a resized image for a carousel to expose the most recents clothes 
     # of a type in a gender clothe
     slash = clothe.ColorImages.first().images.first().image.name.find("/")
@@ -187,7 +188,7 @@ def update_img(id,image):
         
  
     to_update = models.image_for_clothe.objects.get(id=id)
-    print(image)
+    #print(image)
     if to_update:
         
         if os.path.isfile(to_update.image.path):
@@ -195,7 +196,7 @@ def update_img(id,image):
         
             to_update.image = image
             to_update.save()
-            print(to_update.image.path)
+            #print(to_update.image.path)
             return True 
         
     return False        

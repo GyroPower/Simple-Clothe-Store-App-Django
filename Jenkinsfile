@@ -29,7 +29,7 @@ pipeline {
                     
 
                     if (currentBuild.result == "FAILURE"){
-                        echo "Stage Failed"
+                       
                         powershell 'docker-compose -f Simple_Store_D/Simple-Store.dev.yml down'  
                         error("Stage Failed")      
                     }

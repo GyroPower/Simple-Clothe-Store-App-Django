@@ -37,6 +37,7 @@ def add_to_car(request:HttpRequest,string_id):
         color = general.get_color(color_id=ids[1])
         size = general.get_size(size_id=ids[2])
         
+        
         images = clothe.ColorImages.filter(color=color).first().images.all()
         
         image_url = ''
