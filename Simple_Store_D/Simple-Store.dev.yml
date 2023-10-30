@@ -12,7 +12,7 @@ services:
     command: bash -c "gunicorn Simple_Store_D.wsgi:application --bind 0.0.0.0:8000" 
 
     depends_on:
-      - postgresql_dev
+      - postgresqldev
 
 
     environment:
@@ -28,7 +28,7 @@ services:
       - SIMPLE_STORE_PASSWORD=${SIMPLE_STORE_PASSWORD}
        
   
-  postgresql_dev:
+  postgresqldev:
     image: postgres 
     ports:
       - 5434:5432
@@ -37,7 +37,7 @@ services:
       - POSTGRES_PASSWORD=${SIMPLE_STORE_DATABASE_PASSWORD}
       - POSTGRES_DB=${SIMPLE_STORE_DATABASE_NAME}
     volumes:
-      - postgres-db:/var/lib/postgresql_dev/data
+      - postgres-db:/var/lib/postgresqldev/data
     
 volumes:
   postgres-db:
